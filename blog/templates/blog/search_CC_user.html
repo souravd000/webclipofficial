@@ -1,0 +1,55 @@
+{% extends "blog/clipchatbase.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="columns is-mobile">
+  <div class="column is-offset-one-fifth">
+
+
+<div class="field has-addons">
+<form>
+  <div class="control">
+    <input class="input is-large" name="q" type="text" placeholder="Search users..." value="{{ request.GET.q }}">
+  </div>
+  <div class="control">
+  	<button type="submit" class="button is-success">Search</button>
+  </div>
+  </form>
+</div>
+
+
+</div>
+</div>
+
+<div class="column is-one-quarter">
+
+{% for user in users %}
+<div class="box">
+  <article class="media">
+    <div class="media-left">
+      <figure class="image is-64x64">
+            <img class="is-rounded" src="{{ user.profile.image.url }}">
+      </figure>
+    </div>
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <strong>{{ user.get_full_name }}</strong><small>@{{ user.username }}</small>
+        </p>
+        <a href="{% url 'newconversation' user.username %}" class="button is-rounded">Send a message !</a>
+      </div>
+    </div>
+  </article>
+</div>
+{% empty %}
+{% endfor %}
+
+
+
+
+
+</div>
+
+{% endblock %}

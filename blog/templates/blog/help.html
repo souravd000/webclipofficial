@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+   <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet" />
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css">
+    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
+    <link href="https://unpkg.com/video.js@7/dist/video-js.min.css" rel="stylesheet"/>
+    <link href="https://unpkg.com/@videojs/themes@1/dist/forest/index.css" rel="stylesheet"/>
+    <link rel='stylesheet' href='https://unpkg.com/plyr@3/dist/plyr.css'>
+
+
+
+    {% if title %}
+    <title>Webclip {{ title }}</title>
+    {% else %}
+    <title>Webclip</title>
+    {% endif %}
+    <link rel="icon" href="https://webclip-store.s3.ap-south-1.amazonaws.com/webclip2.png" type="image/x-icon" />
+</head>
+<body>
+    <header>
+        <!-- Navbar -->
+       <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'blog-home' %}">
+                    <img src="https://webclip-store.s3.ap-south-1.amazonaws.com/webclip2.png" height="30" alt="" loading="lazy"/>
+                    Help Center
+                </a>
+                <button
+                  class="navbar-toggler"
+                  type="button"
+                  data-mdb-toggle="collapse"
+                  data-mdb-target="#navbarNav"
+                  aria-controls="navbarNav"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
+                  <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav">
+                    <li class="nav-item">
+                      <a class="nav-link" aria-current="page" href="{% url 'about-webclip' %}">About</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link " href="{% url 'terms' %}">Terms</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link " href="{% url 'privacy-policy' %}">Privacy</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#">Help center</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Contact</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+            <!-- Navbar -->
+    </header>
+
+    <main class="">
+        <div class="container">
+            <section class="my-4">
+                <div class="accordion" id="accordionExample">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                      <button
+                        class="accordion-button"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapseOne"
+                        aria-expanded="true"
+                        aria-controls="collapseOne"
+                      >
+                        Help center
+                      </button>
+                    </h2>
+                    <div
+                      id="collapseOne"
+                      class="accordion-collapse collapse show"
+                      aria-labelledby="headingOne"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <h1 class="display-4">Hi {% if user.is_authenticated %}<strong class="text-info">{{user.username}}</strong>, {% endif %}
+                        <P> How can we help?</P>
+                        </h1>
+                        <p>Everything you need to know so you can use webclip properly.</p>
+                        We will cover it up with all the details below. We will update our services with features for a better user experience. After adding those features, we will let you know how to use those features.
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapseTwo"
+                        aria-expanded="false"
+                        aria-controls="collapseTwo"
+                      >
+                        How to Update Profile
+                      </button>
+                    </h2>
+                    <div
+                      id="collapseTwo"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="headingTwo"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                       <p class="text-dark">1. Go to your profile by clicking <i class="fas fa-user mx-2"></i> Profile Button from the <strong>navigation bar</strong>.</p>
+                       <p class="text-dark">2. Click on <i class="fas fa-pen fa-sm mx-1"></i> Edit Profile button.</p>
+                       <p class="text-dark">3. Under Edit Profile, update the information you want to change.</p>
+                       <p class="text-dark">4. Click the <strong>Update</strong> button.</p>
+                       <p class="note note-info">
+                           Note: Changing your information will not affect your existing followers, CC Messages, or comment or replies. Your followers will simply
+                           see new information visiting your profile when you update.
+                       </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapseThree"
+                        aria-expanded="false"
+                        aria-controls="collapseThree"
+                      >
+                        How to Update your Email address
+                      </button>
+                    </h2>
+                    <div
+                      id="collapseThree"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="headingThree"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <p class="text-dark">1. Log in to your account and go to your profile by clicking <i class="fas fa-user mx-2"></i> Profile Button from the <strong>navigation bar</strong>.</p>
+                        <p class="text-dark">2. Click on <i class="fas fa-pen fa-sm mx-1"></i> Edit Profile button.</p>
+                        <p class="text-dark">3. Under Edit Profile, type your <strong>Email</strong> field.</p>
+                        <p class="text-dark">4. Click the <strong>Update</strong> button.</p>
+                        <p class="note note-info">
+                         An email address should be associated with one Webclip account at a time. If you still want
+                         to add more than one account You can do so. Your email address is not displayed in your public profile.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapsefour"
+                        aria-expanded="false"
+                        aria-controls="collapsefour"
+                      >
+                        How to Reset or Change your password
+                      </button>
+                    </h2>
+                    <div
+                      id="collapsefour"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="headingFour"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <p>An accurate and up-to-date email address is the best step you can take to ensure you never lose access to your account.
+                        Take a moment and make sure the email address you have associated with your account is up to date.
+                        </p>
+                        <h6 class="display-6 text-info">How to change your password while you're logged in</h6>
+                        <p class="text-dark">1. Log in to your account and go to your profile by clicking <i class="fas fa-user mx-2"></i> Profile Button from the <strong>navigation bar</strong>.</p>
+                        <p class="text-dark">2. Click on <i class="fas fa-cog mx-1"></i> Settings button.</p>
+                        <p class="text-dark">3. From the Pop up modal click on <strong>Reset Password</strong>.</p>
+                        <p class="text-dark">4. Enter Your <strong>Email address</strong> which is associated with your account.</p>
+                        <p class="text-dark">5. Click on <strong> Request Password Reset</strong>.</p>
+                        <p class="text-dark">6. Check your email inbox. Webclip will immediately send a mail to your account's email address.</p>
+                        <p class="text-dark">7. The email will include a link.</p>
+                        <p class="text-dark">8. Click on the link, Which will direct you to a new page.</p>
+                        <p class="text-dark">9. Type your <strong>New Password</strong> and type your same password in the <strong>Confirm New Password</strong> field.</p>
+                        <p class="text-dark">10. Click on <strong>Reset Password</strong> button.</p>
+                        <p class="text-dark">11. Your new password Has been set. Now you can login by clicking on <strong>login</strong> button.</p>
+                        <h6 class="display-6 text-info">How to change your password while you're logged out or in case you can't login or you forget your password</h6>
+                        <p class="text-dark">1. Go to login page, click <strong>Forget Password</strong>.</p>
+                        <p class="text-dark">2. From there follow the steps (4 to 11) from the top.</p>
+                        <p class="note note-info">
+                          If you have one email address associate with more than one Webclip account you will eventually get reset password mail for each webclip
+                            account in your associate email address.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingfive">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapsefive"
+                        aria-expanded="false"
+                        aria-controls="collapsefive"
+                      >
+                        How to create a Post
+                      </button>
+                    </h2>
+                    <div
+                      id="collapsefive"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="headingfive"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <p>To create a post, follow these steps below</p>
+                        <p class="text-dark">1. From the <strong>navigation bar</strong> click on the <i class="fas fa-feather-alt mx-1"></i> button.</p>
+                        <p class="text-dark">2. Now you can choose what you want to Post. To post pictures and videos, kindly click on that option.</p>
+                        <p class="text-dark">3. Now you can upload photo by clicking on the <strong>choose file</strong> button below the <strong>Image</strong> field.</p>
+                        <p class="text-dark">4. If you want to add a video click on the <strong>choose file</strong> button below the <strong>Video</strong> field.</p>
+                        <p class="text-dark">5. Add some text with it in the <strong>Content</strong> field.</p>
+                        <p class="text-dark">6. Click the <strong>Post</strong> button.</p>
+                        <p class="note note-info">While posting you must have to add some text content as it is required.
+                         Wait until the page takes you to the home page.
+                        </p>
+                        <h6 class="display-6 text-info">Post with <strong>Texts</strong> only</h6>
+                        <p> If you just want to post some texts, follow the steps below:</p>
+                        <p class="text-dark">1. Add some texts in the <strong>Content</strong> field.</p>
+                        <p class="text-dark">2. You can add some <strong>emojis</strong> from the keyboard of your mobile device.
+                        <p class="text-dark">3. You can add a <strong>#hashtag</strong> by typing #yourhashtagname.</p>
+                        <p class="text-dark">4. Hit the <strong>Post</strong> button below.</p>
+                        <p class="note note-info">Currently, we don't have an Emoji selector until then you have to use your mobile device's native keyboard emojis.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingsix">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapsesix"
+                        aria-expanded="false"
+                        aria-controls="collapsesix"
+                      >
+                        How to create a post with Audio
+                      </button>
+                    </h2>
+                    <div
+                      id="collapsesix"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="headingsix"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <p class=text-dark>1. From the <strong>navigation</strong> bar click on the <i class="fas fa-feather-alt mx-1"></i> button.</p>
+                        <p class="text-dark">2. Click on <strong><i class="fas fa-music mx-1"></i>Audio</strong>.</p>
+                        <p class="text-dark">3. Upload your music or song by clicking <strong>Choose file</strong> button below <strong>Audio</strong> field.</p>
+                        <p class="text-dark">4. Upload your poster or picture by clicking <strong>Choose file</strong> button below <strong>Audio poster</strong> field.</p>
+                        <p class="text-dark">5. Write the name of the audio or song.</p>
+                        <p class="text-dark">6. Add Audio artist name. </p>
+                        <p class="text-dark">7. click on the <strong>Post</strong> button.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingseven">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapseseven"
+                        aria-expanded="false"
+                        aria-controls="collapseseven"
+                      >
+                        How to tag
+                      </button>
+                    </h2>
+                    <div
+                      id="collapseseven"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="headingseven"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <p class="text-dark">You can tag only one user per post. To tag a user in your post, follow the steps below.</p>
+                        <p class="text-dark">1. Click on the <i class="fas fa-feather-alt mx-1"></i> button and choose photos/videos or audio option. Tagging works in both option.</p>
+                        <p class="text-dark">2. Now to tag someone you have to know the username of that person.</p>
+                        <p class="text-dark">3. Write <strong>@username</strong> in the <strong>Content</strong> field along with other texts.</p>
+                        <p class="text-dark">4. Click on the <strong>Post</strong> button.</p>
+                        <p class="note note-info">You can add multiple <strong>@username</strong> to tag them, but only one user will get a notification that you tagged him/her on a post.
+                        You can add multiple <strong>#hashtags</strong> with <strong>@username</strong>. You have to know their username before tagging.Either memorize it or copy paste their username.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingeight">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapseeight"
+                        aria-expanded="false"
+                        aria-controls="collapseeight"
+                      >
+                        How to #Hashtag
+                      </button>
+                    </h2>
+                    <div
+                      id="collapseeight"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="headingeight"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <p class="text-dark">To add #hashtag in your post follow the steps below.</p>
+                        <p class="text-dark">1. Click on the <i class="fas fa-feather-alt mx-1"></i> button and choose photos/videos or audio option. #hashtag works in both option.</p>
+                        <p class="text-dark">2. Write <strong>#yourhashtag</strong> in the <strong>Content</strong> field along with other texts.</p>
+                        <p class="text-dark">4. Click on the <strong>Post</strong> button.</p>
+                        <p class="note note-info">You can add multiple #hashtags in a post.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingnine">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapsenine"
+                        aria-expanded="false"
+                        aria-controls="collapsenine"
+                      >
+                        How to Like, Remove Like, Comment and Repost
+                      </button>
+                    </h2>
+                    <div
+                      id="collapsenine"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="headingnine"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <h6 class="display-6 text-info"> How to give a Like in a post</h6>
+                        <p class="text-dark">To give a Like in a post, follow the steps below.</p>
+                        <p class="text-dark">1. Click on the <button class="btn btn-outline-dark btn-floating mx-1"><i class="fas fa-heart"></i></button> button on the <strong>Homepage</strong> and your <strong>following_post</strong> page. </p>
+                        <p class="text-dark">2. A modal popup will appear at the top of the page to inform you that your like has been processed.</p>
+                        <p class="note note-info"> We don't display <button class="btn btn-outline-danger btn-floating mx-1"><i class="fas fa-heart"></i></button> right after pressing the <button class="btn btn-outline-dark btn-floating mx-1"><i class="fas fa-heart"></i></button> button on the <strong>homepage</strong> and your <strong>following_post</strong> page.
+                        If you reload the same page and the same post reappears you can see that you <button class="btn btn-outline-danger btn-floating mx-1"><i class="fas fa-heart"></i></button>liked the post.
+                        Double click on the <strong>Like</strong> button will <strong>remove your like</strong> but still show you the same popup. On the Post detail page, you can <strong>add like</strong> or <strong>remove like</strong> without any hassle.
+                        </p>
+                        <h6 class="display-6 text-info"> How to Remove Like in a post</h6>
+                        <p class="text-dark">To Remove a Like in a post, follow the steps below.</p>
+                        <p class="text-dark">1. You can remove like only if you like the post. To remove like click on <button class="btn btn-outline-danger btn-floating mx-1"><i class="fas fa-heart"></i></button> button on the <strong>Homepage</strong> and your <strong>following_post</strong> page.</p>
+                        <p class="text-dark">2. A modal popup will appear at the top of the page to inform you that your like has been removed.</p>
+                        <p class="note note-info"> We don't display <button class="btn btn-outline-dark btn-floating mx-1"><i class="fas fa-heart"></i></button> right after pressing the <button class="btn btn-outline-danger btn-floating mx-1"><i class="fas fa-heart"></i></button> button on the <strong>Homepage</strong> and your <strong>following_post</strong> page.
+                        If you reload the same page and the same post reappears you can see that you <button class="btn btn-outline-dark btn-floating mx-1"><i class="fas fa-heart"></i></button>liked the post.
+                        Double click on the <button class="btn btn-outline-danger btn-floating mx-1"><i class="fas fa-heart"></i></button> will <strong>add your like</strong> but still show you the same popup. On the Post detail page, you can <strong>add like</strong> or <strong>remove like</strong> without any hassle.
+                        <h6 class="display-6 text-info">How to Comment on a post</h6>
+                        <p class="text-dark">To Comment on a post, follow the steps below:</p>
+                        <p class="text-dark">1. Click on the <i class="far fa-comment-alt mx-1"></i> button from the bottom-right of the post.</p>
+                        <p class="text-dark">2. You will be redirected to the post detail page.</p>
+                        <p class="text-dark">3. Scroll down to bottom.</p>
+                        <p class="text-dark">4. Write your texts with some emoji or comments in the <strong>Content</strong> field.</p>
+                        <p class="text-dark">5. Click <strong>SUBMIT</strong> button.</p>
+                        <p class="note note-info">The user of the post will get a notification if someone comments on their post. If you comment on your post you will receive that notification too.
+                         You can also deactivate comments for an individual post.</p>
+                        <h6 class="display-6 text-info">How to Repost</h6>
+                        <p class="text-dark">To Reposting a post, follow the steps below:</p>
+                        <p class="text-dark">1. Click on the <button class="btn btn-outline-dark btn-floating"><i class="fas fa-exchange-alt"></i></button> button on bottom-right of the post.</p>
+                        <p class="text-dark">2. The page will redirect you to the home page.</p>
+                        <p class="note note-info">By Reposting, your reposted content will be the same as the post content which you reposted. After reposting you can update your reposted content from your profile.
+                        You can also deactivate Reposting for an individual post. Users will get notified when you are reposting their content.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading10">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapse10"
+                        aria-expanded="false"
+                        aria-controls="collapse10"
+                      >
+                        How to disable Comments and Repost
+                      </button>
+                    </h2>
+                    <div
+                      id="collapse10"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="heading10"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                       <p class="">You can disable comments and repost for each post. Disabling comment and repost
+                       can be done when your uploading a post.</p>
+                       <p class="text-dark">To disable comments and repost for each post, follow the steps below:</p>
+                       <p class="text-dark">1. Click on <i class="fas fa-feather-alt mx-1"></i>button from navigation bar.</p>
+                       <p class="text-dark">2. Select your photo and video and write your text content.</p>
+                       <p class="text-dark">3. Click on <strong>Restrict comments</strong> and <strong>Restrict repost</strong> checkboxes to disable both Comment and Repost.</p>
+                       <p class="text-dark">4. Click on <strong>Restrict comments</strong> check box to disable only comments.</p>
+                       <p class="text-dark">5. Click on <strong>Restrict repost</strong> check box to disable only repost.</p>
+                       <p class="text-dark">4. Click on <strong>post</strong> button.</p>
+                       <p class="note note-info">You can go for only comments or repost, or you can disable both comments and repost.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading11">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapse11"
+                        aria-expanded="false"
+                        aria-controls="collapse11"
+                      >
+                        How to delete comments and replies
+                      </button>
+                    </h2>
+                    <div
+                      id="collapse11"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="heading10"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                      <p class="">On other people's posts or your posts, you can only delete comments that you've written. Deleting your comment will delete the replies
+                      associate with it.</p>
+                      <p class="text-dark">To delete a comment and the replies within it, follow the steps below:</p>
+                      <p class="text-dark">1. If you write a comment a <strong>Delete</strong> button will be there below the comment.</p>
+                      <p class="text-dark">2. Click on <strong>Delete</strong> button.</p>
+                      <p class="text-dark">3. You will be redirected to a new page where you have to confirm delete.</p>
+                      <p class="text-dark">4. Press the <strong>yes, delete</strong> button.</p>
+                      <p class="note note-info">Currently, there is no delete button for the reply, we are working on that feature. Deleting comments will delete the reply within it.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading12">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapse12"
+                        aria-expanded="false"
+                        aria-controls="collapse12"
+                      >
+                        How to mention someone on a Comment
+                      </button>
+                    </h2>
+                    <div
+                      id="collapse12"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="heading12"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <p class="">You have to know their username before mentioning them in a comment.</p>
+                        <p class="text-dark">To mention a user, follow the steps below:</p>
+                        <p class="text-dark">1. Go to comment section.</p>
+                        <p class="text-dark">2. Write @withusername in the comment.</p>
+                        <p class="text-dark">3. Click on <strong>SUBMIT</strong> button.</p>
+                        <p class="note note-info">You can mention any user in a comment. You can mention only one user in the comment.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading13">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapse13"
+                        aria-expanded="false"
+                        aria-controls="collapse13"
+                      >
+                        How to Update or Delete your post
+                      </button>
+                    </h2>
+                    <div
+                      id="collapse13"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="heading13"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <h6 class="display-6 text-info">How to update your post</h6>
+                        <p>Only you can update or delete your own post. To update your post, follow the steps below:</p>
+                        <p class="text-dark">1. Click on <i class="fas fa-pen mx-1"></i> button on top-right side of your post.</p>
+                        <p class="text-dark">2. Write your updated content.</p>
+                        <p class="text-dark">3. Click on <strong>POST</strong> button.</p>
+                        <p class="note note-info">You can only update your text content.</p>
+                        <h6 class="display-6 text-info">How to delete your post</h6>
+                        <p>Only you can Delete your own post. To Delete your post, follow the steps below:</p>
+                        <p class="text-dark">1. Click on <i class="fas fa-trash mx-1"></i> button on the top-right of your post.</p>
+                        <p class="text-dark">2. Confirm your Delete by click on the <strong>yes,delete</strong> button.</p>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading14">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapse14"
+                        aria-expanded="false"
+                        aria-controls="collapse14"
+                      >
+                        How to Follow someone
+                      </button>
+                    </h2>
+                    <div
+                      id="collapse14"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="heading14"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <p>To follow someone, follow the steps below:</p>
+                        <p class="text-dark">1. Go to the user profile.</p>
+                        <p class="text-dark">2. Click the <strong>folllow</strong> button.</p>
+                        <p class="note note-info">You can see your own follow button from your public profile, But you can't follow yourself.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading15">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapse15"
+                        aria-expanded="false"
+                        aria-controls="collapse15"
+                      >
+                        How to see posts only who you are following
+                      </button>
+                    </h2>
+                    <div
+                      id="collapse15"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="heading15"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <p>You can see only posts of those you are following. To see the post of theirs, follow the steps below:</p>
+                        <p class="text-dark">1. Click on the <i class="far fa-eye mx-1"></i> button from <strong>navigation</strong> bar.</p>
+                        <p class="text-dark">2. You will be directed to a new page similar to the home page.</p>
+                        <p class="note note-info">Unlike the home page, here exists the post of only whom you are following.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading16">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapse16"
+                        aria-expanded="false"
+                        aria-controls="collapse16"
+                      >
+                        How to save a post in your Watchlist
+                      </button>
+                    </h2>
+                    <div
+                      id="collapse16"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="heading16"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <p class="text-dark">To save a post in your watchlist, follow the steps below:</p
+                        <p class="text-dark">1. Click on the text content of a post.</p>
+                        <p class="text-dark">2. You will be directed in the post detail page.</p>
+                        <p class="text-dark">3. Click on the <i class="far fa-star mx-1"></i> button bottom-left of the post.</p>
+                        <p class="note note-info">If you already saved it you will see the <i class="fas fa-check mx-1"></i> button.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading17">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapse17"
+                        aria-expanded="false"
+                        aria-controls="collapse17"
+                      >
+                        How to see Trending posts
+                      </button>
+                    </h2>
+                    <div
+                      id="collapse17"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="heading17"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <p class="text-dark">Click on the <i class="fas fa-fire mx-1"></i> button from the <strong>navigation</strong> bar.</p>
+                        <p class="note note-info">Most liked posts will appear on the trending page.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading18">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapse18"
+                        aria-expanded="false"
+                        aria-controls="collapse18"
+                      >
+                        How to Message someone
+                      </button>
+                    </h2>
+                    <div
+                      id="collapse18"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="heading18"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <p>You can message a user by following the steps below:</p>
+                        <p class="text-dark">1. Go to a user profile.</p>
+                        <p class="text-dark">2. Click the <i class="far fa-paper-plane"></i> button.</p>
+                        <p class="text-dark">3. A hello message will be sent automatically.</p>
+                        <p class="note note-info">You can message anyone, or anyone can message you.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading20">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapse20"
+                        aria-expanded="false"
+                        aria-controls="collapse20"
+                      >
+                        How to see your CC mesages
+                      </button>
+                    </h2>
+                    <div
+                      id="collapse20"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="heading20"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <p class="text-dark">1. Click on <i class="fas fa-paper-plane mx-1"></i> button on the navigation bar.</p>
+                        <p class="text-dark"> You will be redirected to your CC message page.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading21">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapse21"
+                        aria-expanded="false"
+                        aria-controls="collapse21"
+                      >
+                        How to send CC message from your following list
+                      </button>
+                    </h2>
+                    <div
+                      id="collapse21"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="heading21"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <p>To send a CC message from your following list, follow the steps below:</p>
+                        <p class="text-dark">1. Go to your <strong>profile</strong>.</p>
+                        <p class="text-dark">2. Click on <i class="fas fa-paper-plane mx-1"></i> <strong>send a CC!</strong> button.</p>
+                        <p class="text-dark">3. A modal pop-up will appear with the users whom you are following.</p>
+                        <p class="text-dark">4. Click on the <i class="fas fa-paper-plane"></i> button left-side of the users whom you are following.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading22">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapse22"
+                        aria-expanded="false"
+                        aria-controls="collapse22"
+                      >
+                        How to send CC message from your follower list
+                      </button>
+                    </h2>
+                    <div
+                      id="collapse22"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="heading22"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <p> Currently, this feature is only available for <strong>Desktop</strong> users.</p>
+                        <p class="text-dark">On desktop, to send a CC message from your follower list, follow the steps below:</p>
+                        <p class="text-dark">1. Click on  the <i class="fas fa-paper-plane mx-1"></i> button from your navigation bar.</p>
+                        <p class="text-dark">2. Under your current chat heads, a list of users will be present if you have any followers.</p>
+                        <p class="text-dark">3. Click on the <i class="fas fa-paper-plane"></i> button on the right side of the user who is following you.</p>
+                        <p class="note note-info">This feature is only available for desktop users only.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading19">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapse19"
+                        aria-expanded="false"
+                        aria-controls="collapse19"
+                      >
+                        How to manage Notifications
+                      </button>
+                    </h2>
+                    <div
+                      id="collapse19"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="heading19"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <p>To check notifications, follow the steps below:</p>
+                        <p class="text-dark">1. Click on the <i class="far fa-bell"></i> button from <strong>navigation</strong> bar.</p>
+                        <p class="text-dark">2. You will be redirected to your notifications page.</p>
+                        <h6 class="display-6 text-info">How to mark unread or mark read notifications</h6>
+                        <p>To <strong class="text-info"> mark as read</strong> a notificaton:</p>
+                        <p class="text-dark">1. Click on the <strong>mark as read</strong> on Bottom-left of your notifications.</p>
+                        <p>To <strong class="text-info">mark as unread</strong> a notificaton:</p>
+                        <p class="text-dark">1. Click on <strong>mark as unread</strong> on bottom-left of your notification.</p>
+                        <p class="">To <strong class="text-info">MARK ALL AS READ</strong> the notificatons:</p>
+                        <p class="text-dark">1. click on the <strong>MARK ALL AS READ</strong> button on the top-right side of notifications.</p>
+                        <h6 class="display-6 text-info">How to delete a notifiaction</h6>
+                        <p class="text-dark">1. Click on the<strong>delete</strong> on the bottom-right of notification.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading24">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#collapse24"
+                        aria-expanded="false"
+                        aria-controls="collapse24"
+                      >
+                        How to Logout
+                      </button>
+                    </h2>
+                    <div
+                      id="collapse24"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="heading24"
+                      data-mdb-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <p>To logout follow the steps below:</p>
+                        <p class="text-dark">1. Click on the <i class="fas fa-user mx-1"></i> button from the <strong>navigation</strong> bar.</p>
+                        <p class="text-dark">2. A popup will appear.</p>
+                        <p class="text-dark">3. Click on <strong>logout</strong> button.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script> <!--problem with 3.1.0 jquery as its not working on comment section properly in content refreshing system-->
+    <script src="https://kit.fontawesome.com/34abf3621c.js" crossorigin="anonymous"></script>
+    <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
+    <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
+    <script src='https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL'></script>
+    <script src='https://unpkg.com/plyr@3'></script>
+
+
+</body>
+</html>

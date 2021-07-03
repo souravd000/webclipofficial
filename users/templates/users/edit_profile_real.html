@@ -1,0 +1,53 @@
+{% extends "users/profile_base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<main>
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-7">
+           <section class="newsfeed my-5">
+                <div class="post">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the
+                            card's content.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+           </section>
+        </div>
+    </div>
+</div>
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-7">
+            <article class="content-section" >
+                <div class="media">
+                <img class="account-img rounded-circle" src="{{ user.profile.image.url }}">
+                </div>
+                <div class="media-body">
+                    <h6 class="text-center account-heading">{{  user.get_full_name }}</h6>
+                    <p class="text-center text-secondary fw-bold text-reset">{{ user.username }}</p>
+                    <p class="text-center text-secondary text-reset">{{ user.profile.Bio }}</p>
+                </div>
+                <!-- FORM HERE -->
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4 text-center"><i class="fas fa-pen"></i> Edit Profile</legend>
+                        {{ u_form|crispy }}
+                        {{ p_form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-lg btn-rounded" type="submit">Update</button>
+                    </div>
+                </form>
+            </article>
+        </div>
+    </div>
+</div>
+</main>
+{% endblock content %}

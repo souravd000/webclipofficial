@@ -1,0 +1,22 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<main>
+    <div class="row">
+        <div class="col-md-7 my-4">
+            <div class="content-section" style="padding:10px 20px;">
+                <form method="POST" actions="{% url 'post-delete' object.id %}">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">Delete Post</legend>
+                        <small>Are you sure you want to delete the post "{{ object.content | truncatechars:40 }}" ?</small>
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-outline-danger" type="submit">Yes, Delete</button>
+                        <a class="btn btn-outline-dark" href="javascript:window.history.back();">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

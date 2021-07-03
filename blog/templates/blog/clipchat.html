@@ -1,0 +1,105 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% load recommended %}
+{% block content %}
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+
+                <section class="newsfeed mt-4 mb-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class="list-inline text-nowrap overflow-auto">
+                                <li class="list-inline-item">
+                                    <a class="" href="{% url 'usersearch' %}">
+                                        <button class="btn btn-light btn-floating btn-lg mb-4 mx-2"><i class="fas fa-plus"></i></button>
+                                    </a>
+                                </li>
+                            {% for message in messages %}
+                            <a class="" href="{% url 'directs' message.user.username %}">
+                                <li class="list-inline-item">
+                                    <a href="{% url 'directs' message.user.username %}">
+                                        <img class="article-img rounded-circle {% if active_direct == message.user.username %} border border-primary border-2 {% endif %}" src="{{ message.user.profile.image.url }}" style="object-fit: cover;">
+                                        <small class="text-muted">{{ message.user.username }}</small>
+                                        {% if message.unread %}
+                                        <span class="badge bg-danger round-pill">{{ message.unread }}</span>
+                                        {% endif %}
+                                    </a>
+                                </li>
+                            </a>
+                            {% empty %}
+                            Empty
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                </section>
+                <section class="newsfeed d-none d-lg-block">
+                    <ul class="list-group text-nowrap overflow-auto" style="height:350px;">
+                        {% for owner in user.followed_by.all %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <img class="article-img rounded-circle" src="{{ owner.user.profile.image.url }}" style="object-fit: cover;">
+                            <div class="profile-info">
+                                <a class="h2" href="{% url 'directs' owner.user.username %}">{{ owner.user.username }}</a><small>{% if owner.user.profile.verify_account %}<i class="fas fa-check-circle ml-1" style="color:#1da1f2;"></i>{% endif %} {% if owner.user.profile.vip_verify_account %}<i class="fas fa-crown" style="color:#25D366;"></i>{% endif %}</small>
+                                <div class="text-muted">you can message these followers</div>
+                            </div>
+                            <div class="ml-auto">
+                                <a href="{% url 'newconversation' owner.user.username %}">
+                                    <button class="btn btn-rounded btn-info"><i class="fas fa-paper-plane"></i></button>
+                                </a>
+                            </div>
+                        </li>
+                        {% empty %}
+                        <div class="content-section">
+                            <p class="text-center text-muted pt-3">you don't have any followers to start a chat</p>
+                            {% recommended request.user %}
+                        </div>
+                        {% endfor %}
+                    </ul>
+                </section>
+            </div>
+            <div class="col-md-7">
+                <section class="newsfeed mt-4 mb-2">
+                    <div class="align-items-center">
+                        <div class="card">
+                            {% for message in messages %}
+                            {% if active_direct == message.user.username %}
+                            <div class="card-header "><a class="text-dark" href="{% url 'user-posts' message.user.username %}"><strong>{{ message.user.username }}</strong></a><small>{% if message.user.profile.verify_account %}<i class="fas fa-check-circle ml-1" style="color:#1da1f2;"></i>{% endif %} {% if message.user.profile.vip_verify_account %}<i class="fas fa-crown" style="color:#25D366;"></i>{% endif %}</small></div>
+                            {% endif %}
+                            {% endfor %}
+                            <div id="tt12" class="card-body overflow-auto" style="height:350px;">
+                            {% for direct in directs %}
+                                <div class="alert alert-dark py-0">
+                                    <small><strong>{{ direct.sender.username}}</strong></small> on <small>{{ direct.date | timesince }}</small>
+                                    <p>{{ direct.body }}</p>
+                                </div>
+                            {% empty %}
+                            No CC messages.
+                            {% endfor %}
+                            </div>
+
+                            <div class="card-body py-1">
+                                <form role="form" method="POST" action="{% url 'send_direct' %}">
+                                {% csrf_token %}
+                                    <div class=" d-flex justify-content-start align-items-center">
+                                      <div class="form-outline mb-1 align-self-center flex-fill ">
+                                            <input type="hidden" name="to_user" value="{{ active_direct }}">
+                                            <textarea class="form-control" placeholder="emoji supported" name="body"></textarea>
+                                            <label class="form-label" for="hgf">Message</label>
+                                      </div>
+                                        <div class="p-2 ml-0">
+                                            <button type="submit" class="btn btn-info  btn-floating  "> <i class="fas fa-paper-plane"></i> </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

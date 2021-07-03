@@ -1,0 +1,318 @@
+{% extends "blog/base.html" %}
+{% load recommended %}
+{% block content %}
+<main role="main" class="container">
+    <div class="row">
+        <div class="col-md-7 mt-5">
+            <section class="newsfeed">
+                <p class="note note-info">
+                 Pressing the <strong>like</strong> button, the <strong>remove like</strong> button will not appear immediately.
+                </p>
+            </section>
+            {% for post in object_list %}
+            {%if post.parent %}
+            <article class="content-section">
+                <div class="d-inline p-2 bg-light text-muted"><i class="fas fa-exchange-alt"></i> Reposted </div>
+                <div class="article-metadata">
+                    <div class="img">
+                       <img class="article-img rounded-circle" src="{{ post.author.profile.image.url }}" style="object-fit: cover;">
+                    </div>
+                    <div class="profile-info">
+                      <a class="h2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a><small>{% if post.author.profile.verify_account %}<i class="fas fa-check-circle ml-1" style="color:#1da1f2;"></i>{% endif %} {% if post.author.profile.vip_verify_account %}<i class="fas fa-crown" style="color:#25D366;"></i>{% endif %}</small>
+                      <div class="text-muted">{{ post.date_posted | timesince }}</div>
+                    </div>
+                    <div class="options">
+                        {% if post.author == user %}
+                        <a href="{% url 'post-update' pk=post.pk %}">
+                           <button type="button" class="btn btn-outline-dark btn-sm btn-rounded"><i class="fas fa-pen"></i></button>
+                        </a>
+                        <a href="{% url 'post-delete' pk=post.pk %}">
+                           <button type="button" class="btn btn-outline-dark btn-sm btn-rounded"><i class="fas fa-trash"></i></button>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <a class="article-content" href="{% url 'post-detail' pk=post.pk %}"><p>{{ post.content | truncatechars:100}}</p></a>
+                <article class="content-section">
+                    <div class="article-metadata">
+                        <div class="img">
+                           <img class="article-img rounded-circle" src="{{ post.parent.author.profile.image.url }}" loading="lazy" style="object-fit: cover;">
+                        </div>
+                        <div class="profile-info">
+                          <a class="h2" href="{% url 'user-posts' post.parent.author.username %}">{{ post.parent.author }}</a><small>{% if post.parent.author.profile.verify_account %}<i class="fas fa-check-circle ml-1" style="color:#1da1f2;"></i>{% endif %} {% if post.parent.author.profile.vip_verify_account %}<i class="fas fa-crown" style="color:#25D366;"></i>{% endif %}</small>
+                          <div class="text-muted">{{ post.parent.date_posted | timesince }}</div>
+                        </div>
+                    </div>
+                    {% if post.parent.image %}
+                    <img class="img-fluid mx-auto d-block" src="{{ post.parent.image.url }}" loading="lazy">
+                    <div class="mb-1"></div>
+                    {% endif %}
+                    <div class="d-flex justify-content-center">
+                        {% if post.parent.audio %}
+                            <div class="card mb-2">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        {% if post.parent.audio_poster %}
+                                        <img src="{{ post.parent.audio_poster.url }}" class="img-fluid mx-auto d-block"/>
+                                        {% else %}
+                                        <img src="https://webclip-store.s3.ap-south-1.amazonaws.com/posterdefault.jpg" class="img-fluid mx-auto d-block"/>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            {% if post.parent.audio_name %}
+                                            <h6 class="card-title my-0"><small><i class="fas fa-music mr-2 text-muted"></i></small>{{ post.parent.audio_name }}</h6>
+                                            {% endif %}
+                                            {% if post.parent.audio_artist_name %}
+                                            <small class="card-subtitle my-0 text-muted lh-1"><i class="fas fa-microphone-alt mr-2"></i>{{ post.parent.audio_artist_name }}</small>
+                                            {% endif %}
+                                            <a class="btn btn-primary btn-lg btn-floating float-right" style="background-color: #12d4f2" href="{% url 'post-detail' pk=post.parent.pk %}" role="button"><i class="fas fa-play"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% if post.parent.video %}
+                        <video width="100%" class="video-js vjs-theme-forest vjs-fluid" controls preload="auto" data-setup='{ "playbackRates": [1, 1.5, 2] }' style="left: 0px; top: 0px;">
+                            <source src="{{ post.parent.video.url }}" type="video/mp4">
+                        </video>
+                    {% endif %}
+                    <a class="article-content" href="{% url 'post-detail' pk=post.parent.pk %}"><p class="border-left">{{ post.parent.content |truncatechars:500 }}</p></a>
+                </article>
+                <div class="d-flex mb-1 pt-0">
+                    <div class="me-auto p-2">
+                        <form action="{% url 'like_post' %}" method="POST">
+                        {% csrf_token %}
+                        {% if post.is_liked %}
+                            <button type="submit" id="like" name="post_id" value="{{ post.id }}" class="dislike2-btn btn-outline-danger btn-floating" data-mdb-ripple-color="dark"><i class="fas fa-heart"></i></button>
+                        {% else %}
+                            <button type="submit" id="like" name="post_id" value="{{ post.id }}" class="like2-btn btn-outline-dark btn-floating" data-mdb-ripple-color="dark"><i class="far fa-heart"></i></button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Like</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" style="background:#ffffff;">
+                                        <p class="text-danger text-center fs-3">Liked!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModal2Label" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModal2Label">Like removed</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" style="background:#ffffff;">
+                                        <p class="text-dark text-center fs-3">Like removed.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                        {% endif %}
+                        </form>
+                    </div>
+                    <div class="p-2">
+                        {% if not post.restrict_comments %}
+                        <a href="{% url 'post-detail' pk=post.pk %}">
+                            <button type="button" class=" like-2 btn btn-outline-dark btn-floating" data-mdb-ripple-color="dark"><i class="far fa-comment-alt"></i></button>
+                        </a>
+                        {% endif %}
+                    </div>
+                    <div class="p-2">
+                        {% if not post.restrict_repost %}
+                        <a href="{% url 'repost' pk=post.pk %}">
+                            <button type="button" class="btn btn-outline-dark btn-floating" data-mdb-ripple-color="dark"><i class="fas fa-exchange-alt"></i></button>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="d-flex mb-0">
+                    <div class=" me-auto p-2 px-0 py-0">
+                        <a class="text-muted" href="{% url 'post-likes' pk=post.pk %}">
+                            <p>{{ post.total_likes }}like{{ post.total_likes|pluralize}}</p>
+                        </a>
+                    </div>
+                    <div class="p-2 px-0 py-0">
+                        <p>
+                            {% if not post.restrict_comments %}
+                            <a class="text-muted" href="{% url 'post-detail' pk=post.pk %}">{{ post.comments.count }}comment{{ post.comments.count|pluralize }}</a>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </article>
+            {% else %}
+            <article class="content-section">
+                <div class="article-metadata">
+                    <div class="img">
+                       <img class="article-img rounded-circle" src="{{ post.author.profile.image.url }}" style="object-fit: cover;">
+                    </div>
+                    <div class="profile-info">
+                      <a class="h2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a><small>{% if post.author.profile.verify_account %}<i class="fas fa-check-circle ml-1" style="color:#1da1f2;"></i>{% endif %} {% if post.author.profile.vip_verify_account %}<i class="fas fa-crown" style="color:#25D366;"></i>{% endif %}</small>
+                      <div class="text-muted">{{ post.date_posted | timesince }}</div>
+                    </div>
+                    <div class="options">
+                        {% if post.author == user %}
+                        <a href="{% url 'post-update' pk=post.pk %}">
+                           <button type="button" class="btn btn-sm btn-outline-dark btn-rounded"><i class="fas fa-pen"></i></button>
+                        </a>
+                        <a href="{% url 'post-delete' pk=post.pk %}">
+                           <button type="button" class="btn btn-sm btn-outline-dark btn-rounded"><i class="fas fa-trash"></i></button>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if post.image %}
+                <img class="img-fluid mx-auto d-block" src="{{ post.image.url }}" loading="lazy">
+                <div class="mb-1"></div>
+                {% endif %}
+                <!--audio file------------------------------------------------------------------------------>
+                {% if post.audio %}
+                <div class="card mb-2">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            {% if post.audio_poster %}
+                                <img src="{{ post.audio_poster.url }}" class="img-fluid mx-auto d-block"/>
+                            {% else %}
+                                <img src="https://webclip-store.s3.ap-south-1.amazonaws.com/posterdefault.jpg" class="img-fluid mx-auto d-block"/>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                {% if post.audio_name %}
+                                <h6 class="card-title my-0"><small><i class="fas fa-music mr-2 text-muted"></i></small>{{ post.audio_name }}</h6>
+                                {% else %}
+                                <h6 class="card-title my-0"><small><i class="fas fa-music mr-2 text-muted"></i></small>webclip music</h6>
+                                {% endif %}
+                                {% if post.audio_artist_name %}
+                                <small class="card-subtitle my-0 text-muted lh-1"><i class="fas fa-microphone-alt mr-2"></i>{{ post.audio_artist_name }}</small>
+                                {% else %}
+                                <small class="card-subtitle my-0 text-muted lh-1"><i class="fas fa-microphone-alt mr-2"></i>unknown</small>
+                                {% endif %}
+                                <a class="btn btn-primary btn-lg btn-floating float-right" style="background-color: #12d4f2" href="{% url 'post-detail' pk=post.pk %}" role="button"><i class="fas fa-play"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                <!------------------------------------->
+                {% if post.video %}
+                <video width="100%" class="video-js vjs-theme-forest vjs-fluid" controls preload="auto" data-setup='{ "playbackRates": [1, 1.5, 2] }' style="left: 0px; top: 0px;">
+                    <source src="{{ post.video.url }}" type="video/mp4">
+                </video>
+                <!--<video width="100%" controlslist="nodownload" style="left: 0px; top: 0px;" controls-->
+                {% endif %}
+                <a class="article-content" href="{% url 'post-detail' pk=post.pk %}" ><p>{{ post.content | truncatechars:500 }}</p></a>
+                <div class="d-flex mb-1 pt-0">
+                    <div class="me-auto p-2">
+                        <form action="{% url 'like_post' %}" method="POST">
+                        {% csrf_token %}
+                        {% if post.is_liked %}
+                            <button type="submit" id="like" name="post_id" value="{{ post.id }}" class="dislike2-btn btn-outline-danger btn-floating" data-mdb-ripple-color="dark"><i class="fas fa-heart"></i></button>
+                        {% else %}
+                            <button type="submit" id="like" name="post_id" value="{{ post.id }}" class="like2-btn btn-outline-dark btn-floating" data-mdb-ripple-color="dark"><i class="far fa-heart"></i></button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Like</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" style="background:#ffffff;">
+                                        <p class="text-danger text-center fs-3">Liked!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModal2Label" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModal2Label">Like removed</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" style="background:#ffffff;">
+                                        <p class="text-dark text-center fs-3">Like removed.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        {% endif %}
+                        </form>
+                    </div>
+                    <div class="p-2">
+                        {% if not post.restrict_comments %}
+                        <a href="{% url 'post-detail' pk=post.pk %}">
+                            <button type="button" class=" like-3 btn btn-outline-dark btn-floating" data-mdb-ripple-color="dark"><i class="far fa-comment-alt"></i></button>
+                        </a>
+                        {% endif %}
+                    </div>
+                    <div class="p-2">
+                        {% if not post.restrict_repost %}
+                        <a href="{% url 'repost' pk=post.pk %}">
+                            <button type="button" class="btn btn-outline-dark btn-floating" data-mdb-ripple-color="dark"><i class="fas fa-exchange-alt"></i></button>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="d-flex mb-0">
+                    <div class=" me-auto p-2 px-0 py-0">
+                        <a class="text-muted" href="{% url 'post-likes' pk=post.pk %}">
+                            <p>{{ post.total_likes }}like{{ post.total_likes|pluralize}}</p>
+                        </a>
+                    </div>
+                    <div class="p-2 px-0 py-0">
+                        <p>
+                            {% if not post.restrict_comments %}
+                            <a class="text-muted" href="{% url 'post-detail' pk=post.pk %}">{{ post.comments.count }}comment{{ post.comments.count|pluralize }}</a>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+        {% endif %}
+        {% endfor %}
+        <article class="content-section d-flex justify-content-center">
+        {% if page_obj.has_next %}
+            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">load more posts or refresh ...</a>
+        {% endif %}
+        </article>
+        </div>
+        <div class="col-md-5 my-5">
+            <div class="content-section">
+                <p class="text-center text-muted pt-3">Users you may follow</p>
+                {% recommended request.user %}
+            </div>
+                <div class="d-flex justify-content-start mb-0">
+                  <small><p><a class="text-muted" href="{% url 'about-webclip' %}">About</a></p></small>
+                  <small><p><a class="text-muted" href="{% url 'terms' %}">Terms</a></p></small>
+                  <small><p><a class="text-muted" href="{% url 'privacy-policy' %}">Privacy</a></p></small>
+                  <small><p><a class="text-muted" href="{% url 'help-center' %}">Help</a></p></small>
+                  <small><p><a class="text-muted" href="{% url 'contact' %}">Contact</a></p></small>
+                </div>
+            <div class="mt-0">
+                <small><p class="text-muted py-0"><span>&#169;</span> 2021 Webclip</p></small>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

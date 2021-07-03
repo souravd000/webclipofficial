@@ -1,0 +1,30 @@
+canvas {
+  margin: auto;
+  background: #ececec;
+  width: 100%;
+}
+
+.btn-disabled {
+  color: #fff !important;
+}
+
+.navbar-light .navbar-toggler{
+    border-color: #90EE90;
+}
+
+.bg-steel {
+  background-color: #000000;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #1A73E8;
+  font-size:17px;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #000000;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}

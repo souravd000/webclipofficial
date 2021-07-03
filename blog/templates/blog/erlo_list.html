@@ -1,0 +1,195 @@
+{% extends "blog/base.html" %}
+{% load recommended %}
+{% block content %}
+<main role="main" class="container infinite-container">
+    <div class="row">
+        <div class="col-sm-6 infinite-item">
+            <article class="content-section">
+                <div class="post-bar">
+                    <a href="" class="mdl-button mdl-js-button mdl-button--fab">
+                      <i class="material-icons">add</i>
+                    </a>
+                    <p class="text">Tab the button for write a post</p>
+                </div>
+            </article>
+            {% for post in object_list %}
+            {%if post.parent %}
+            <article class="content-section">
+                <div class="article-metadata">
+                    <div class="img">
+                       <img class="article-img rounded-circle" src="{{ post.author.profile.image.url }}">
+                    </div>
+                    <div class="profile-info">
+                      <a class="h2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a> <span> </span> <span>{% if post.author.profile.verify_account %}<i class="fas fa-user-check" style="color:#1da1f2;"></i>{% endif %} </span> <span> {% if post.author.profile.vip_verify_account %}<i class="fas fa-crown" style="color:#25D366;"></i>{% endif %}</span><span class="k">has share the post</span>
+                      <div class="text-muted">{{ post.date_posted }}</div>
+                    </div>
+                    <div class="options">
+                        {% if post.author == user %}
+                        <a href="{% url 'post-update' pk=post.pk %}">
+                           <button type="button" class="btn btn-primary btn-sm">Update</button>
+                        </a>
+                        <a href="{% url 'post-delete' pk=post.pk %}">
+                           <button type="button" class="btn btn-info btn-sm">Delete</button>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <p><a href="{% url 'post-detail' pk=post.pk %}">{{ post.content}}</a></p>
+                <article class="content-section">
+                    <div class="article-metadata">
+                        <div class="img">
+                           <img class="article-img rounded-circle" src="{{ post.parent.author.profile.image.url }}" loading="lazy">
+                        </div>
+                        <div class="profile-info">
+                          <a class="h2" href="{% url 'user-posts' post.parent.author.username %}">{{ post.parent.author }}</a><span> </span><span> {% if post.parent.author.profile.verify_account %}<i class="fas fa-user-check" style="color:#1da1f2;"></i>{% endif %} </span> <span> {% if post.parent.author.profile.vip_verify_account %}<i class="fas fa-crown" style="color:#25D366;"></i>{% endif %}</span>
+                          <div class="text-muted">{{ post.parent.date_posted }}</div>
+                        </div>
+                    </div>
+                    {% if post.parent.image %}
+                    <img class="img-fluid lazy" src="{{ post.parent.image.url }}" loading="lazy">
+                    {% endif %}
+                    {% if post.parent.video %}
+                        <video width="100%" style="left: 0px; top: 0px;" controls>
+                            <source src="{{ post.parent.video.url }}" type="video/mp4">
+                        </video>
+                    {% endif %}
+                    <div class="d-flex justify-content-center">
+                        {% if post.parent.audio %}
+                                <audio controls>
+                                	<source src="{{ post.parent.audio.url }}" type="audio/mp3">
+                                </audio>
+                        {% endif %}
+                    </div>
+                    <p><a class="article-content" href="{% url 'post-detail' pk=post.parent.pk %}" >{{ post.parent.content }}</a></p>
+                </article>
+                <div class="d-flex justify-content-center">
+                    <div class="p-2">
+                        <form action="{% url 'like_post' %}" method="POST">
+                        {% csrf_token %}
+                        {% if post.is_liked %}
+                             <button type="submit" id="like" name="post_id" value="{{ post.id }}" class="btn btn-danger">dislike</button>
+                        {% else %}
+                          <button type="submit" id="like" name="post_id" value="{{ post.id }}" class="btn btn-primary">like</button>
+                        {% endif %}
+                        </form>
+                        <a href="{% url 'post-likes' pk=post.pk %}">
+                            <p>{{ post.total_likes }}like{{ post.total_likes|pluralize}}</p>
+                        </a>
+                    </div>
+                    <div class="p-2">
+                        <a href="{% url 'post-detail' pk=post.pk %}">
+                              <button type="button" class="btn btn-success">Comment</button>
+                        </a>
+                        <p>
+                           <a href="{% url 'post-detail' pk=post.pk %}">{{ post.comments.count }}comment{{ post.comments.count|pluralize }}</a>
+                        </p>
+
+                    </div>
+                    <div class="ml-auto p-2">
+                        <a href="{% url 'repost' pk=post.pk %}">
+                          <button type="button" class="btn btn-success">Share</button>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            {% else %}
+            <article class="content-section">
+                <div class="article-metadata">
+                    <div class="img">
+                       <img class="article-img rounded-circle" src="{{ post.author.profile.image.url }}">
+                    </div>
+                    <div class="profile-info">
+                      <a class="h2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a> <span> </span><span> {% if post.author.profile.verify_account %}<i class="fas fa-user-check" style="color:#1da1f2;"></i>{% endif %} </span> <span> {% if post.author.profile.vip_verify_account %}<i class="fas fa-crown" style="color:#25D366;"></i>{% endif %}</span>
+                      <div class="text-muted">{{ post.date_posted }}</div>
+                    </div>
+                    <div class="options">
+                        {% if post.author == user %}
+                        <a href="{% url 'post-update' pk=post.pk %}">
+                           <button type="button" class="btn btn-primary btn-sm">Update</button>
+                        </a>
+                        <a href="{% url 'post-delete' pk=post.pk %}">
+                           <button type="button" class="btn btn-info btn-sm">Delete</button>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if post.image %}
+                <img class="img-fluid center" src="{{ post.image.url }}" loading="lazy">
+                {% endif %}
+                {% if post.video %}
+                    <video width="100%" style="left: 0px; top: 0px;" controls>
+                        <source src="{{ post.video.url }}" type="video/mp4">
+                    </video>
+                {% endif %}
+                <!--audio file------------------------------------------------------------------------------>
+                <div class="d-flex justify-content-center">
+                {% if post.audio %}
+                        <audio controls>
+                        	<source src="{{ post.audio.url }}" type="audio/mp3">
+                        </audio>
+                {% endif %}
+                </div>
+                  <p><a class="article-content" href="{% url 'post-detail' pk=post.pk %}" >{{ post.content }}</a></p>
+                    <div class="d-flex justify-content-center">
+                        <div class="p-2">
+                            {% include 'blog/likes_home.html' %}
+                        </div>
+                        <div class="p-2">
+                            <a href="{% url 'post-detail' pk=post.pk %}">
+                              <button type="button" class="btn btn-success">Comment</button>
+                            </a>
+                            <p>
+                               <a href="{% url 'post-detail' pk=post.pk %}">{{ post.comments.count }}comment{{ post.comments.count|pluralize }}</a>
+                            </p>
+                        </div>
+                        <div class="ml-auto p-2">
+                            <div id="share-section">
+                              {% include 'blog/share.html' %}
+                            </div>
+                        </div>
+                   </div>
+            </article>
+
+        {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">More</a>
+        {% endif %}
+        <div class="col-sm-6">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/shortcuts/infinite.min.js" type="text/javascript"></script>
+        <script>
+        var infinite = new Waypoint.Infinite({
+            element: $('.infinite-container')[0],
+            handler: function(direction) {
+
+        },
+        offset: 'bottom-in-view',
+        onBeforePageLoad: function () {
+        $('.spinner-border').show();
+        },
+        onAfterPageLoad: function () {
+        $('.spinner-border').hide();
+        }
+
+
+        });
+
+
+        </script>
+
+        </div>
+        <div class="col-md-4">
+          <div class="content-section" style="padding: 10px 20px">
+            <h3 class="lead">recommended</h3>
+            <p class='text-muted'>recommended users to follow</p>
+              {% recommended request.user %}
+
+          </div>
+        </div>
+{% endblock content %}

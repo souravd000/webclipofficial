@@ -1,0 +1,127 @@
+.mejs__button>button:focus {
+    outline: 0px dotted #999;
+}
+.mejs__button>button:before {
+    content: "\f04b";
+}
+
+.mejs__container {
+    position: relative;
+    background-color: transparent;
+    min-width: auto !important;
+}
+.mejs__controls {
+    padding: 0 10%;
+    background: transparent !important;
+    display: block;
+    position: relative;
+}
+.mejs__controls div {
+    display: block;
+    float: left;
+    position: relative;
+}
+.mejs__controls .mejs__playpause-button {
+    position: absolute !important;
+    right: 8%;
+    bottom: 95%;
+    width: 40px;
+}
+.mejs__controls .mejs__playpause-button button {
+    display: block;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    font-family: FontAwesome;
+    font-size: 23px;
+    color: #43f9e7;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+}
+
+.mejs__controls .mejs__play button:before{
+    content:"\f04b";
+}
+.mejs__controls .mejs__pause button:before{
+    content:"\f04c";
+}
+
+.mejs__controls .mejs__time {
+    width: 100%;
+    margin-top:0%;
+    margin-bottom:0%;
+    color: #fff;
+    height: auto;
+    padding: 0;
+    overflow: visible;
+    min-width: 100%;
+}
+.mejs__controls .mejs__time span {
+    font-size: 15px;
+    padding: 0;
+    margin:0;
+}
+.mejs__controls span.mejs__duration {
+    float: right;
+    text-align: right;
+    color: #ccc;
+    display: flex;
+}
+.mejs__controls span.mejs__currenttime {
+    font-weight: 700;
+    float: left;
+    text-align: left;
+    display: flex;
+}
+.mejs__controls .mejs__time-rail {
+    width: 100%;
+    margin: 0;
+}
+.mejs__controls .mejs__time-rail span {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 4px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+.mejs__controls .mejs__time-rail .mejs__time-loaded {
+    background: rgba(255,255,255,0.2);
+}
+.mejs__controls .mejs__time-rail .mejs__time-float {
+    display: none;
+    top: -40px;
+    width: 40px;
+    height: 25px;
+    margin-left: 0px;
+    text-align: center;
+    font-size: 10px;
+    background: #fff;
+    border: 0;
+}
+.mejs__controls .mejs__time-rail .mejs__time-float-current {
+    display: block;
+    position: relative;
+    top: 0;
+    margin: 0;
+    line-height: 26px;
+    color: #100d28;
+}
+.mejs__controls .mejs__time-rail .mejs__time-float-corner {
+    top: auto;
+    bottom: -9px;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-top: 6px solid #fff;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+}
+.mejs__controls .mejs__time-rail .mejs__time-current {
+    background: linear-gradient(to right, rgba(79, 172, 254, 0.6), rgba(0, 255, 255, 0.75));
+}
+.mejs__controls .mejs__time-handle {
+    display: none;
+}

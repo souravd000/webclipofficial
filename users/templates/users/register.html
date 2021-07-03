@@ -1,0 +1,25 @@
+{% extends "users/loginbase.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Register Your Account</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn aqua-gradient" type="submit">Sign Up</button>
+            </div>
+            <small>By signing up, you agree to the <a href="{% url 'terms' %}">Terms of Service</a> and <a href="{% url 'privacy-policy' %}">Privacy Policy</a>.</small>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">Already Have An Account? <a class="ml-2" type="submit" href="{% url 'login' %}">Sign In</a>
+            </small>
+        </div>
+    </div>
+    <div class="note note-primary mb-2">
+                <small>Memorise your username carefully, we don't provide login through email id, we also don't provide email verification upon creating your webclip account. Snapshot your username  or note it down </small>
+    </div>
+{% endblock content %}

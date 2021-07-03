@@ -1,0 +1,36 @@
+{% extends "users/loginbase.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section ">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Log In</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn aqua-gradient btn-rounded" type="submit">Login</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">Need An Account? <a class="ml-2" href="{% url 'register' %}">Sign up</a>
+            </small>
+            <small class="text-muted">
+                <a class="ml-2" href="{% url 'password_reset' %}">Forget Password</a>
+            </small>
+        </div>
+    </div>
+    <div class="content-section">
+        <p class="text-center"> --OR-- </p>
+        <a href="{% url 'register' %}">
+         <button class="btn purple-gradient btn-lg btn-block">Signup</button>
+        </a>
+    </div>
+    <div class="d-flex justify-content-start flex-wrap">
+        <small><p class="pl-2"><a class="text-muted " href="{% url 'terms' %}">Terms</a></p></small>
+        <small><p class="pl-2"><a class="text-muted" href="{% url 'privacy-policy' %}">Privacy</a></p></small>
+        <small><p class="pl-2"><a class="text-muted" href="{% url 'help-center' %}">Help</a></p></small>
+        <small><p class="pl-2"><a class="text-muted" href="">Contact</a></p></small>
+        <small><p class="text-muted pl-2"><span>&#169;</span> 2021 Webclip</p></small>
+    </div>
+{% endblock content %}

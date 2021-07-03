@@ -1,0 +1,6 @@
+<form class="form-inline my-2 my-lg-0" method="GET" action='{% url "blog-home" %}'>
+    <div class="form-group">
+        <input class="form-control mr-sm-2" type="text" name="q" placeholder="search" value="{{ request.GET.q }}"/>
+        <input class="btn btn-outline-success" type='submit' value='search'/>
+    </div>
+</form>

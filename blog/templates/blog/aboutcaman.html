@@ -1,0 +1,252 @@
+{% load static %}
+{% load notifications_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+
+   <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/caman.css' %}">
+
+
+
+
+    {% if title %}
+    <title>django blog - {{ title }}</title>
+    {% else %}
+    <title>django blog</title>
+    {% endif %}
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-light bg-light mb-5">
+            <div class="container">
+                <a href="#" class="navbar-brand">Image Filter</a>
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="{% url 'post_watchlist_list' %}"> <span> <i class="far fa-bookmark"></i> </span>Home</a>
+                    <a class="nav-item nav-link " href="{% url 'post-create' %}"> <span> <i class="fas fa-plus-circle"></i> </span>Post</a>
+                    <a class="nav-item nav-link" href="{% url 'notifications:all' %}"> <span> <i class="far fa-bell"></i> </span> Notification<span class="badge badge-danger">{% live_notify_badge badge_class="badge" %}</span></a>
+                    <a class="nav-item nav-link" href="{% url 'most-likes' %}"> <span> <i class="fab fa-hotjar"></i> </span>Trending</a>
+                    <a class="nav-item nav-link" href="{% url 'logout' %}"> <span> <i class="fas fa-sign-out-alt"></i> </span>Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 m-auto">
+                <div class="custom-file mb-3">
+                    <input type="file" class="custom-file-input" id="upload-file">
+                    <label for="upload-file" class="custom-file-label">Choose Image</label>
+                </div>
+                <canvas id="canvas"></canvas>
+
+                <h4 class="text-center my-3">Filters</h4>
+
+                <div class="d-flex align-content-center flex-wrap">
+                        <div class="p-2">
+                            <div class="btn-group btn-group-sm">
+                                <button class="filter-btn brightness-remove btn btn-info">-</button>
+                                <button class="btn btn-secondary btn-disabled" disabled>Brightness</button>
+                                <button class="filter-btn brightness-add btn btn-info">+</button>
+                            </div>
+                        </div>
+
+                        <div class="p-2">
+                            <div class="btn-group btn-group-sm">
+                                <button class="filter-btn contrast-remove btn btn-info">-</button>
+                                <button class="btn btn-secondary btn-disabled" disabled>Contrast</button>
+                                <button class="filter-btn contrast-add btn btn-info">+</button>
+                            </div>
+                        </div>
+
+                        <div class="p-2">
+                            <div class="btn-group btn-group-sm">
+                                <button class="filter-btn saturation-remove btn btn-info">-</button>
+                                <button class="btn btn-secondary btn-disabled" disabled>Saturation</button>
+                                <button class="filter-btn saturation-add btn btn-info">+</button>
+                            </div>
+                        </div>
+
+                        <div class="p-2">
+                            <div class="btn-group btn-group-sm">
+                                <button class="filter-btn vibrance-remove btn btn-info">-</button>
+                                <button class="btn btn-secondary btn-disabled" disabled>Vibrance</button>
+                                <button class="filter-btn vibrance-add btn btn-info">+</button>
+                            </div>
+                        </div>
+
+                        <div class="p-2">
+                            <div class="btn-group btn-group-sm">
+                                <button class="filter-btn gamma-remove btn btn-info">-</button>
+                                <button class="btn btn-secondary btn-disabled" disabled>Gamma</button>
+                                <button class="filter-btn gamma-add btn btn-info">+</button>
+                            </div>
+                        </div>
+
+                        <div class="p-2">
+                            <div class="btn-group btn-group-sm">
+                                <button class="filter-btn Exposure-remove btn btn-info">-</button>
+                                <button class="btn btn-secondary btn-disabled" disabled>Exposure</button>
+                                <button class="filter-btn Exposure-add btn btn-info">+</button>
+                            </div>
+                        </div>
+
+                        <div class="p-2">
+                            <div class="btn-group btn-group-sm">
+                                <button class="filter-btn noise-remove btn btn-info">-</button>
+                                <button class="btn btn-secondary btn-disabled" disabled>Noise</button>
+                                <button class="filter-btn noise-add btn btn-info">+</button>
+                            </div>
+                        </div>
+
+                        <div class="p-2">
+                            <div class="btn-group btn-group-sm">
+                                <button class="filter-btn crop-remove btn btn-info">-</button>
+                                <button class="btn btn-secondary btn-disabled" disabled>clip</button>
+                                <button class="filter-btn crop-add btn btn-info">+</button>
+                            </div>
+                        </div>
+
+                        <div class="p-2">
+                            <div class="btn-group btn-group-sm">
+                                <button class="filter-btn Hue-remove btn btn-info">-</button>
+                                <button class="btn btn-secondary btn-disabled" disabled>Hue</button>
+                                <button class="filter-btn Hue-add btn btn-info">+</button>
+                            </div>
+                        </div>
+                        <div class="p-2">
+                            <div class="btn-group btn-group-sm">
+                                <button class="filter-btn sepia-remove btn btn-info">-</button>
+                                <button class="btn btn-secondary btn-disabled" disabled>sepia</button>
+                                <button class="filter-btn sepia-add btn btn-info">+</button>
+                            </div>
+                        </div>
+                        <div class="p-2">
+                            <div class="btn-group btn-group-sm">
+                                <button class="filter-btn SHARPEN-remove btn btn-info">-</button>
+                                <button class="btn btn-secondary btn-disabled" disabled>Sharpen</button>
+                                <button class="filter-btn SHARPEN-add btn btn-info">+</button>
+                            </div>
+                        </div>
+                        <div class="p-2">
+                            <div class="btn-group btn-group-sm">
+                                <button class="filter-btn StackBlur-remove btn btn-info">-</button>
+                                <button class="btn btn-secondary btn-disabled" disabled>StackBlur</button>
+                                <button class="filter-btn StackBlur-add btn btn-info">+</button>
+                            </div>
+                        </div>
+                </div>
+                <!-- ./row -->
+
+                <h4 class="text-center my-3">Effects</h4>
+
+                <div class="d-flex align-content-center flex-wrap">
+                    <div class="p-2">
+                        <button class="filter-btn vintage-add btn btn-dark btn-block">
+                          Vintage
+                        </button>
+                    </div>
+                    <div class="p-2">
+                        <button class="filter-btn lomo-add btn btn-dark btn-block">
+                          Lomo
+                        </button>
+                    </div>
+                    <div class="p-2">
+                        <button class="filter-btn clarity-add btn btn-dark btn-block">
+                          Clarity
+                        </button>
+                    </div>
+                    <div class="p-2">
+                        <button class="filter-btn sincity-add btn btn-dark btn-block">
+                          Sin City
+                        </button>
+                    </div>
+                     <div class="p-2">
+                        <button class="filter-btn hazy-add btn btn-dark btn-block">
+                          Hazy
+                        </button>
+                    </div>
+                </div>
+
+                <div class="d-flex align-content-center flex-wrap">
+                    <div class="p-2">
+                        <button class="filter-btn crossprocess-add btn btn-dark btn-block">
+                          Crossy
+                        </button>
+                    </div>
+                    <div class="p-2">
+                        <button class="filter-btn pinhole-add btn btn-dark btn-block">
+                          Pinhole
+                        </button>
+                    </div>
+                    <div class="p-2">
+                        <button class="filter-btn nostalgia-add btn btn-dark btn-block">
+                          Nostalgia
+                        </button>
+                    </div>
+                    <div class="p-2">
+                        <button class="filter-btn hermajesty-add btn btn-dark btn-block">
+                          Her Majesty
+                        </button>
+                    </div>
+                    <div class="p-2">
+                        <button class="filter-btn grungy-add btn btn-dark btn-block">
+                          Grunge
+                        </button>
+                    </div>
+                </div>
+
+                <div class="d-flex align-content-center flex-wrap">
+                    <div class="p-2">
+                        <button class="filter-btn profile-add btn btn-dark btn-block">
+                          linear blur
+                        </button>
+                    </div>
+                    <div class="p-2">
+                        <button class="filter-btn radial-add btn btn-dark btn-block">
+                          Radial blur
+                        </button>
+                    </div>
+                    <div class="p-2">
+                        <button class="filter-btn jackas-add btn btn-dark btn-block">
+                          Jackas
+                        </button>
+                    </div>
+                </div>
+
+                <div class="d-flex align-content-center flex-wrap">
+                    <div class="p-2">
+                      <button id="download-btn" class="btn btn-primary btn-block">Download Image</button>
+                    </div>
+                    <div class="p-2">
+                      <button id="revert-btn" class="btn btn-danger btn-block">Remove Filters</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-file-saver/1.1.3/angular-file-saver.bundle.min.js"
+<!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/camanjs/4.1.2/caman.full.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="{% static 'blog/main.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    <article class="content-section">
+        <div class="post-bar">
+            <a href="" class="mdl-button mdl-js-button mdl-button--fab">
+              <i class="material-icons">add</i>
+            </a>
+            <p class="text">Tab the button for write a post</p>
+        </div>
+        <div class="post-icons">
+          <a href="" class="material-icons-outlined md-48">burst_mode</a>
+          <a href="" class="material-icons-outlined md-48 video">video_call</a>
+          <a href="" class="material-icons-outlined md-48 audio">music_note</a>
+          <a href="" class="material-icons-outlined md-48 audio">gif</a>
+        </div>
+    </article>
+    {% for post in object_list %}
+    {%if post.parent %}
+    <article class="content-section">
+        <div class="article-metadata">
+            <div class="img">
+               <img class="article-img rounded-circle" src="{{ post.author.profile.image.url }}">
+            </div>
+            <div class="profile-info">
+              <a class="h2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a> has share the post
+              <div class="text-muted">{{ post.date_posted }}</div>
+            </div>
+            <div class="options">
+                <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
+                  <i class="material-icons">more_vert</i>
+                </button>
+                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                    for="demo-menu-lower-right">
+                    {% if post.author == user %}
+                    <a href="{% url 'post-update' pk=post.pk %}">
+                      <li class="mdl-menu__item">update</li>
+                    </a>
+                    <a href="{% url 'post-delete' pk=post.pk %}">
+                      <li class="mdl-menu__item">delete</li>
+                    </a>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <p>{{ post.content}}</p>
+        <article class="content-section">
+            <div class="article-metadata">
+                <div class="img">
+                   <img class="article-img rounded-circle" src="{{ post.parent.author.profile.image.url }}">
+                </div>
+                <div class="profile-info">
+                  <a class="h2" href="{% url 'user-posts' post.parent.author.username %}">{{ post.parent.author }}</a>
+                  <div class="text-muted">{{ post.date_posted }}</div>
+                </div>
+            </div>
+            {% if post.parent.image %}
+            <img class="img-fluid" src="{{ post.parent.image.url }}">
+            {% endif %}
+            <p><a class="article-content" href="" >{{ post.parent.content }}</a></p>
+        </article>
+        <a href="{% url 'post-likes' pk=post.pk %}">
+            {{ post.total_likes }}like{{ post.total_likes|pluralize}}
+        </a>
+        <a href="{% url 'post-detail' pk=post.pk %}">{{ post.comments.count }}comment{{ post.comments.count|pluralize }}</a>
+        <a href="{% url 'repost' pk=post.pk %}">
+              <button type="button" class="btn btn-success">Share</button>
+              <form action="{% url 'like_post' %}" method="POST">
+                {% csrf_token %}
+                {% if post.is_liked %}
+                     <button type="submit" id="like" name="post_id" value="{{ post.id }}" class="btn btn-danger">dislike</button>
+                {% else %}
+                  <button type="submit" id="like" name="post_id" value="{{ post.id }}" class="btn btn-primary">like</button>
+                {% endif %}
+              </form>
+        </a>
+    </article>
+    {% else %}
+    <article class="content-section">
+        <div class="article-metadata">
+            <div class="img">
+               <img class="article-img rounded-circle" src="{{ post.author.profile.image.url }}">
+            </div>
+            <div class="profile-info">
+              <a class="h2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+              <div class="text-muted">{{ post.date_posted }}</div>
+            </div>
+            <div class="options">
+                <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
+                  <i class="material-icons">more_vert</i>
+                </button>
+                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                    for="demo-menu-lower-right">
+                    {% if post.author == user %}
+                    <a href="{% url 'post-update' pk=post.pk %}">
+                      <li class="mdl-menu__item">update</li>
+                    </a>
+                    <a href="{% url 'post-delete' pk=post.pk %}">
+                      <li class="mdl-menu__item">delete</li>
+                    </a>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        {% if post.image %}
+        <img class="img-fluid" src="{{ post.image.url }}">
+        {% endif %}
+        {% if post.video %}
+            <video width="100%" controlslist="nodownload" style="left: 0px; top: 0px;" controls>
+                <source src="{{ post.video.url }}" type="video/mp4">
+            </video>
+        {% endif %}
+          <p><a class="article-content" href="{% url 'post-detail' pk=post.pk %}" >{{ post.content }}</a></p>
+          <a href="{% url 'post-likes' pk=post.pk %}">
+            {{ post.total_likes }}like{{ post.total_likes|pluralize}}
+          </a>
+          <a href="{% url 'post-detail' pk=post.pk %}">{{ post.comments.count }}comment{{ post.comments.count|pluralize }}</a>
+          <div id="share-section">
+              {% include 'blog/share.html' %}
+          </div>
+            <form action="{% url 'like_post' %}" method="POST">
+                {% csrf_token %}
+                {% if post.is_liked %}
+                     <button type="submit" id="like" name="post_id" value="{{ post.id }}" class="btn btn-danger">dislike</button>
+                {% else %}
+                  <button type="submit" id="like" name="post_id" value="{{ post.id }}" class="btn btn-primary">like</button>
+                {% endif %}
+            </form>
+    </article>
+    {% endif %}
+    {% endfor %}
+{% endblock content %}

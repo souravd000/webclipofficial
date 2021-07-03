@@ -1,0 +1,308 @@
+body {
+  background: #f3f3f3;
+  color: #333333;
+  margin-top: 5rem;
+}
+
+div.col-sm-6{
+    padding:0px 0px;
+}
+.k{
+    font-size: 13px ;
+}
+
+header.base-header{
+    padding:16px 40px 16px 16px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+}
+
+ul {
+  margin: 0;
+}
+
+.navbar-light .navbar-toggler{
+    border-color: #90EE90;
+}
+
+.bg-steel {
+  background-color: #000000;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #1A73E8;
+  font-size:17px;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #000000;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 0px 0px;
+  border: 0px solid #dddddd;
+  border-radius: 4px;
+  margin-bottom: 24px;
+
+}
+
+.btn-xs{
+    margin: 0px;
+    font-size: 70%;
+    border-radius: 50%;
+}
+
+.sammha {
+  padding:0px 0px;
+  margin-bottom: 0px;
+  border-bottom: 1px solid #e3e3e3;
+
+}
+
+.info{
+    margin-top: 20px;
+    padding:10px 10px;
+    position:relative;
+    display:flex;
+
+}
+
+div.user-detail{
+    margin:0px 0px 0px 0px;
+    flex-grow:2;
+}
+
+.preview {
+  min-width: 200px;
+  background: #111;
+  flex-grow: 1;
+}
+
+img.preview__header {
+  background-color: #343338;
+  background-size: cover;
+  text-align: center;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.header__name {
+  margin-top: 0;
+  font-size: 2.0rem;
+  font-family: "TelefonBlack", sans-serif;
+  color: white;
+  font-weight: 900;
+  margin-bottom: 2px;
+}
+
+.header__username {
+  color: #c1bbbb;
+  font-size: 1.2rem;
+}
+
+.header__badge {
+  font-family: Lato;
+  font-size: .8rem;
+  color: black;
+  background: #fcd000;
+  padding: 1px 3px;
+  border-radius: 3px;
+  vertical-align: top;
+  position: relative;
+  top: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.preview__bottom-bar {
+  background: #ffffff;
+  height: 50px;
+}
+
+.avatar {
+  height: 150px;
+  width: 150px;
+  vertical-align: middle;
+  border-radius: 50%;
+  display: block;
+  border:4px solid #fff;
+  margin: 0 auto;
+  -webkit-transform: translateY(calc(-50% - 8px));
+          transform: translateY(calc(-50% - 8px));
+}
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.article-content {
+  color: #444444;
+  white-space: pre-line;
+}
+
+.bottom-bar{
+  background: #ffffff;
+  height: 20px;
+}
+
+.gallery-img {
+  height: 300px;
+  width: 300px;
+  display: block;
+  position absolute;
+  border:1px solid #fff;
+}
+
+.article-img {
+  height: 50px;
+  width: 50px;
+  display: block;
+  border:4px solid #fff;
+}
+
+.efg-img {
+  height: 50px;
+  width: 50px;
+}
+
+.sdf-img {
+  height: 50px;
+  width: 50px;
+}
+
+.ijk-img {
+  height: 50px;
+  width: 50px;
+}
+.article-img-2 {
+  height: 30px;
+  width: 30px;
+}
+
+
+.article-metadata {
+  padding:10px 10px;
+  margin-bottom: 0px;
+  border-bottom: 1px solid #e3e3e3;
+  position: relative;
+  display:flex;
+
+}
+
+.article-repostdata {
+  padding:10px 10px;
+  margin-bottom: 0px;
+  border-bottom: 1px solid #e3e3e3;
+  position: relative;
+  display:flex;
+
+}
+
+.article-metadata2 {
+  padding:0px 0px;
+  margin-bottom: 0px;
+  border-bottom: 1px solid #e3e3e3;
+  position: relative;
+  display:flex;
+}
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+div.text{
+    font-size:11px;
+}
+
+a.h2{
+    font-size:15px;
+    font-weight:600;
+}
+
+div.text-muted{
+    font-size:11px;
+}
+
+div.profile-info{
+    margin:0px 0px 0px 12px;
+    flex-grow:2;
+}
+p{
+    padding:0px 10px;
+    margin-top:6px;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+  border: 3px solid #000000;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
+
+video {
+  width: 100%;
+  height: auto;
+}
+
+.post-bar {
+  padding:10px 10px;
+  margin-bottom: 0px;
+  border-bottom: 1px solid #e3e3e3;
+  position: relative;
+  display:flex;
+
+}
+
+.mdl-button{
+    padding:0px 0px;
+    margin:0px 0px;
+    overflow:hidden;
+    display:inline-block;
+}
+
+p.text{
+    font-size:16px;
+    margin:17px 0px 11px;
+    text-align:center;
+    vertical-align:middle;
+}
+.post-icons{
+    width:100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

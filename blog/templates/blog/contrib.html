@@ -1,0 +1,38 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<main role="main" class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            <article class="content-section">
+                    <h5 class="lead"><mark class="alert-info"><i class="fas fa-donate"></i> How to apply for contribution account?</mark></h6>
+                    <ul class="list-unstyled">
+                    <ul>
+                        <li>First, Select the edit profile button and go to the edit profile page.</li>
+                        <li>You have to verify your account vefore proceeding to your contribution account. <a href="{% url 'verify-profile' %}">how to verify?</a></li>
+                        <li>Update your profile with your bank information. we recommend you to use paypal account.</li>
+                        <li>you can download your UPI QR code from your digital bank provider</li>
+                        <li>you have to upload the picture of your QR code.</li>
+                        <li>Under the QR code please provide your bank account number and the name of the bank.</li>
+                        <li>Last, you have to press the update button for update your profile</li>
+                    </ul>
+                    <p><strong> <i class="far fa-star"></i> you can give any digital bank provider(including Paypal, paytm, phonepe, etc.) account name and information.</strong></p>
+            </article>
+            <article class="content-section">
+                    <h5 class="lead"><mark class="alert-success"><i class="fas fa-user-secret"></i> Know your privacy</mark></h6>
+                    <ul class="list-unstyled">
+                    <ul>
+                         <li>You can deactivate your contribution account by simply select the deactivate contribution option.</li>
+                        <li>you can reactivate your contribution account by deselct the option anytime any where.</li>
+                        <li>your account information will not erased while you deactivate the account.</li>
+                        <li>we don"t use any of your data. Feel free to use.</li>
+                    </ul>
+                    <p><strong> <i class="far fa-star"></i> We don't take any charges if anyone Donate or Contribute to your account.</strong></p>
+                    <p></p>
+            </article>
+            <article class="content-section">
+                    <h5 class="lead"><mark class="alert-primary"><i class="fas fa-video"></i> Video tutorial </mark></h6>
+                    <p><strong> <i class="fas fa-video"></i> If You have any difficulty to understand our notes you can watch our video tutorial.</strong></p>
+            </article>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+   <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet" />
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css">
+    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
+    <link href="https://unpkg.com/video.js@7/dist/video-js.min.css" rel="stylesheet"/>
+    <link href="https://unpkg.com/@videojs/themes@1/dist/forest/index.css" rel="stylesheet"/>
+    <link rel='stylesheet' href='https://unpkg.com/plyr@3/dist/plyr.css'>
+
+
+
+    {% if title %}
+    <title>Webclip {{ title }}</title>
+    {% else %}
+    <title>Webclip</title>
+    {% endif %}
+    <link rel="icon" href="https://webclip-store.s3.ap-south-1.amazonaws.com/webclip2.png" type="image/x-icon" />
+</head>
+<style>
+    .scrollspy-example {
+      position: relative;
+      height: 450px;
+      overflow: auto;
+    }
+</style>
+<body>
+    <header>
+        <!-- Navbar -->
+       <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <div class="container-fluid">
+                <a class="navbar-brand">
+                    <img src="https://webclip-store.s3.ap-south-1.amazonaws.com/webclip2.png" height="30" alt="" loading="lazy"/>
+                     Terms of Service
+                </a>
+                <button
+                  class="navbar-toggler"
+                  type="button"
+                  data-mdb-toggle="collapse"
+                  data-mdb-target="#navbarNav"
+                  aria-controls="navbarNav"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
+                  <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav">
+                    <li class="nav-item">
+                      <a class="nav-link" aria-current="page" href="{% url 'about-webclip' %}">About</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#">Terms</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'privacy-policy' %}">Privacy</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'help-center' %}">Help center</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+            <!-- Navbar -->
+    </header>
+
+    <main class="">
+        <div class="container">
+            <section class="my-4">
+
+                <div class="row">
+                  <div class="col-md-9 order-last">
+                    <!-- Spied element -->
+                    <div
+                      data-mdb-spy="scroll"
+                      data-mdb-target="#scrollspy1"
+                      data-mdb-offset="0"
+                      class="scrollspy-example"
+
+                    >
+                      <section id="example-1">
+                        <h3>Introduction</h3>
+                        <P>Understanding these terms is important because, by using our services,
+                        you’re agreeing to these terms. In any case, you must be at least 13 years old, to use the Services.
+                        If you are accepting these Terms and using the Services on behalf of a company, organization, government, or other legal entity,
+                        you represent and warrant that you are authorized to do so and have the authority to bind such entity to these Terms,
+                        in which case the words “you” and “your” as used in these Terms shall refer to such entity.
+                        </P>
+                        <P>
+                            These Terms of Service grant your access to and use of our services, including our website,
+                            Messages, Notifications, applications, buttons, ads, commerce services that link to these Terms (collectively, the “Services”),
+                            and any information, text, links, photos, audios, videos, or other materials or
+                            arrangements of materials uploaded, downloaded or appearing on the Services (collectively referred to as “Content”).
+                            By using the Services you agree to be bound by these Terms.
+                        </P>
+                      </section>
+                      <section id="example-2">
+                        <h3>Your relationship with Webclip</h3>
+                        <P>
+                            These terms help define the relationship between you and Webclip.
+                            We give you permission to use our services if you agree to follow our terms, which
+                            reflect how webclip’s business works and how we earn money. When we speak of “Webclip,”
+                            “we,” “us,” and “our,” we mean Webclip and its affiliates, excluding any local entities.
+                        </P>
+                        <h5 class="display-6">
+                           <strong>What you can expect from us</strong>
+                        </h5>
+                        <p class="display-6 mt-5"><strong>Services</strong></p>
+                        <ul class="list-unstyled">
+                            <li>We provide services that are subject to these terms, including:
+                            <ul>
+                              <li>Posting photos, videos, audios( song, music )</li>
+                              <li>Notifications</li>
+                              <li>Messaging</li>
+                              <li>Ad services(currently devloping state)</li>
+                              <li>Payment wall</li>
+                            </ul>
+                            </li>
+                        </ul>
+                        <h5 class="mt-5"><strong>Improve webclip services</strong></h5>
+                        <p>
+                            We’re constantly developing new technologies and features to improve our services.
+                            As part of this continual improvement, we sometimes add or remove
+                            features and functionalities, increase or decrease limits to our services,
+                            and start offering new services or stop offering old ones.
+
+                        </p>
+                        <p>
+                        If we make material changes that negatively impact your use of our services or if we stop offering a service, we’ll provide you
+                        with reasonable advance notice.
+                        In urgent situations such as preventing abuse, responding to legal requirements, or addressing security and operability issues
+                        we will take actions.
+                        </p>
+                        <h5 class="display-6">
+                           <strong>What we expect from you</strong>
+                        </h5>
+                        <ul class="list-unstyled">
+                            <li>Our services allow you to interact with others. We want to maintain a respectful environment for everyone,
+                            which means you must follow these basic rules of conduct:
+                            <ul>
+                              <li>don’t abuse or harm others or yourself (or threaten or encourage such abuse or harm) — for example,
+                              by misleading, defrauding, defaming, bullying, harassing, or stalking others)
+                              </li>
+                              <li>don’t abuse, harm, interfere with, or disrupt the services</li>
+                              <li>respect the rights of others, including privacy and intellectual property rights</li>
+                            </ul>
+                            </li>
+                        </ul>
+                      </section>
+                      <section id="example-3">
+                        <h3>Using webclip services</h3>
+                        <P>
+                            Our Services evolve constantly. As such, the Services may change from time to time, at our discretion.
+                            We may stop (permanently or temporarily) providing the Services or any features within the Services to you or to
+                            users generally. We also retain the right to create limits on use and storage at our sole discretion at any time.
+                            We may also remove or refuse to distribute any Content on the Services, limit distribution or
+                            visibility of any Content on the service, suspend or terminate users, and reclaim usernames without liability to you.
+                        </P>
+                        <ul class="list-unstyled">
+                            <li>
+                                In consideration for webclip granting you access to and use of the Services. You also agree not to misuse our Services, for example, by interfering
+                                with them or accessing them using a method other than the interface and the instructions that we provide. You may not do any of
+                                the following while accessing or using the Services:
+                                <ul>
+                                    <li> access, tamper with, or use non-public areas of the Services, Webclip’s computer systems, or the technical delivery systems
+                                    of Webclip’s providers;</li>
+                                    <li>
+                                        probe, scan, or test the vulnerability of any system or network or breach or circumvent any security or authentication measures;
+                                    </li>
+                                    <li>access or search or attempt to access or search the Services by any means (automated or otherwise) other than through our currently
+                                    available, published interfaces that are provided by Webclip (and only pursuant to the applicable terms and conditions), unless you have
+                                    been specifically allowed to do so in a separate agreement with Webclip (NOTE: crawling the Services is permissible if done in accordance
+                                    with the provisions of the robots.txt file, however, scraping the Services without the prior consent of Webclip is expressly prohibited);
+                                    </li>
+                                    <li>
+                                        forge any TCP/IP packet header or any part of the header information in any email or posting, or in any way use the Services to send altered,
+                                        deceptive or false source-identifying information;
+                                    </li>
+                                    <li>
+                                        interfere with, or disrupt, (or attempt to do so), the access of any user, host or network, including, without limitation, sending a virus,
+                                        overloading, flooding, spamming, mail-bombing the Services, or by scripting the creation of Content in such a manner as to interfere with or
+                                        create an undue burden on the Services.
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <h5>Using Webclip services on behalf of an organization</h5>
+                        <P>
+                            Many organizations, such as businesses, non-profits, and schools, take advantage of our services. To use our services on behalf of an organization:
+                            (1) an authorized representative of that organization must agree to these terms.
+                            (2) your organization’s administrator may assign a Webclip to you. That administrator might require you to follow additional rules and may be able to access or disable your Webclip Account.
+                        </P>
+                        <h5>Your Account</h5>
+                            <p>
+                              You need to create an account to use of our Services. We don't use third Party for our services unless you do so. You are responsible for safeguarding your account,
+                              so use a strong password and verify your account and limit its use to this account.
+                              We cannot and will not be liable for any loss or damage arising from your failure to comply with the above.
+                            </p>
+                            <p>
+                                You can control most communications from the Services. We may need to provide you with certain communications,
+                                such as service announcements and administrative messages. These communications are considered part of the Services
+                                and your account, and you may not be able to opt-out from receiving them.
+                            </p>
+                        <h5>Your License to Use the Services</h5>
+                        <p>
+                            Webclip gives you a personal, worldwide, royalty-free, non-assignable and non-exclusive license to use the software provided
+                            to you as part of the Services. This license has the sole purpose of enabling you to use and enjoy the benefit of the Services
+                            as provided by Webclip, in the manner permitted by these Terms.
+                        </p>
+                        <p>
+                            The Services are protected by copyright, trademark, and other laws of worldwide. Nothing in the
+                            Terms gives you a right to use the Webclip name or any of the Webclip trademarks, logos, domain names, other distinctive brand features,
+                            and other proprietary rights. All right, title, and interest in and to the Services (excluding Content provided by users) are and will remain
+                            the exclusive property of Webclip and its licensors. Any feedback, comments, or suggestions you may provide regarding Webclip, or the Services
+                            is entirely voluntary and we will be free to use such feedback, comments or suggestions as we see fit and without any obligation to you.
+                        </p>
+                        <section id="example-sub-A">
+                          <h3>Content in Webclip services</h3>
+                            <p>
+                              You are responsible for your use of the Services and for any Content you provide, including compliance with applicable laws, rules, and
+                              regulations. You should only provide Content that you are comfortable sharing with others.
+                            </p>
+                            <p>
+                                Any use or reliance on any Content or materials posted via the Services or obtained by you through the Services is at your own risk.
+                                We do not endorse, support, represent or guarantee the completeness, truthfulness, accuracy, or reliability of any Content or communications
+                                posted via the Services or endorse any opinions expressed via the Services. You understand that by using the Services, you may be exposed to
+                                Content that might be offensive, harmful, inaccurate or otherwise inappropriate, or in some cases, postings that have been mislabeled or are
+                                otherwise deceptive. All Content is the sole responsibility of the person who originated such Content. We may not monitor or control the Content
+                                posted via the Services and, we cannot take responsibility for such Content.
+                            </p>
+                            <P>
+                                We reserve the right to remove Content that violates the User Agreement, including for example, copyright or trademark violations or other
+                                intellectual property misappropriation, impersonation, unlawful conduct, or harassment. Information regarding specific policies and the
+                                process for reporting or appealing violations can be found in our Help Center.
+                            </P>
+                        </section>
+                        <section id="example-sub-B">
+                          <h3>Your Rights and Grant of Rights in the Content</h3>
+                            <P>
+                              You retain your rights to any Content you submit, post or display on or through the Services. What’s yours is yours — you own your Content
+                              (and your incorporated audio, photos and videos are considered part of the Content).
+                            </P>
+                            <p>
+                                By submitting, posting or displaying Content on or through the Services, you grant us a worldwide, non-exclusive, royalty-free license
+                                (with the right to sublicense) to use, copy, reproduce, process, adapt, modify, publish, transmit, display and distribute such Content
+                                in any and all media or distribution methods now known or later developed (for clarity, these rights include, for example, curating,
+                                transforming, and translating). This license authorizes us to make your Content available to the rest of the world and to let others
+                                do the same. You agree that this license includes the right for Webclip to provide, promote, and improve the Services and to make Content
+                                submitted to or through the Services available to other companies, organizations or individuals for the syndication, broadcast, distribution,
+                                Repost, promotion or publication of such Content on other media and services, subject to our terms and conditions for such Content use.
+                                Such additional uses by Webclip, or other companies, organizations or individuals, is made with no compensation paid to you with respect to
+                                the Content that you submit, post, transmit or otherwise make available through the Services as the use of the Services by you is hereby agreed
+                                as being sufficient compensation for the Content and grant of rights herein.
+                            </p>
+                            <P>
+                                You represent and warrant that you have, or have obtained, all rights, licenses, consents, permissions, power and/or authority necessary to grant
+                                the rights granted herein for any Content that you submit, post or display on or through the Services. You agree that such Content will not contain
+                                material subject to copyright or other proprietary rights, unless you have necessary permission or are otherwise legally entitled to post the material
+                                and to grant Webclip the license described above.
+                            </P>
+                        </section>
+                      </section>
+                      <section id="example-4">
+                        <h3>Liability</h3>
+                        <p>
+                            These terms only limit our responsibilities as allowed by applicable law. Specifically, these terms don’t limit Webclip’s liability for death or personal injury,
+                            fraud, fraudulent misrepresentation, gross negligence, or willful misconduct.
+                            Other than the rights and responsibilities described in this section (In case of problems or disagreements),
+                            Webclip won’t be responsible for any other losses, unless they’re caused by our breach of these terms or service-specific additional terms.
+                        </p>
+                        <h5>Taking action in case of problems</h5>
+                        <ul class="list-unstyled">
+                            <li>
+                                Before taking action as described below, we’ll provide you with advance notice when reasonably possible,
+                                describe the reason for our action, and give you an opportunity to fix the problem, unless we reasonably believe that doing so would:
+                                <ul>
+                                    <li>cause harm or liability to a user, third party, or Webclip</li>
+                                    <li>violate the law or a legal enforcement authority’s order</li>
+                                    <li>compromise an investigation</li>
+                                    <li>ompromise the operation, integrity, or security of our services</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <h5>Removing your content</h5>
+                        <ul class="list-unstyled">
+                            <li>
+                               If we reasonably believe that any of your content:
+                                <ul>
+                                    <li>breaches these terms, service-specific additional terms or policies</li>
+                                    <li>violates applicable law</li>
+                                    <li>could harm our users, third parties, or Google, then we reserve the right to take down some or all of that content in accordance with applicable law.
+                                </ul>
+                                Examples include child pornography, content that facilitates human trafficking or harassment,
+                                and content that infringes someone else’s intellectual property rights.
+                            </li>
+                        </ul>
+                        <h5>Suspending or terminating your access to Webclip services</h5>
+                        <ul class="list-unstyled">
+                            <li>
+                                Webclip reserves the right to suspend or terminate your access to the services or delete your
+                                Webclip Account if any of these things happen:
+                                <ul>
+                                    <li>you materially or repeatedly breach these terms</li>
+                                    <li>we’re required to do so to comply with a legal requirement or a court order</li>
+                                    <li>we reasonably believe that your conduct causes harm or liability to a user, third party,
+                                    or Webclip — for example, by hacking, phishing, harassing, spamming, misleading others, or scraping
+                                    content that doesn’t belong to you</li>
+                                </ul>
+                                If you believe your Webclip Account has been suspended or terminated in error, you can mail us with your username.
+                            </li>
+                        </ul>
+                        <p>Of course, you’re always free to stop using our services at any time. If you do stop using a service, we’d appreciate
+                         knowing why so that we can continue improving our services.
+                        </p>
+                      </section>
+                    </div>
+                    <!-- Spied element -->
+                  </div>
+
+                  <div class="col-md-3">
+                    <!-- Scrollspy -->
+                    <div id="scrollspy1" class="sticky-top">
+                      <ul class="nav flex-column nav-pills menu-sidebar">
+                        <li class="nav-item">
+                          <a class="nav-link" href="#example-1">Introduction</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#example-2">Your relationship with webclip</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#example-3">Using webclip services</a>
+                          <ul class="nav flex-column ps-3">
+                            <li class="nav-item">
+                              <a class="nav-link" href="#example-sub-A">Content in webclip services</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#example-sub-B">Your Rights and Grant of Rights in the Content</a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#example-4">Liabilities</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- Scrollspy -->
+                  </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script> <!--problem with 3.1.0 jquery as its not working on comment section properly in content refreshing system-->
+    <script src="https://kit.fontawesome.com/34abf3621c.js" crossorigin="anonymous"></script>
+    <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
+    <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
+    <script src='https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL'></script>
+    <script src='https://unpkg.com/plyr@3'></script>
+
+
+</body>
+</html>

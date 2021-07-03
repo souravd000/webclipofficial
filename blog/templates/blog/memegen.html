@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Create a MEME</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel='stylesheet' href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'blog/memestyle.css' %}">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!--
+
+  Inspired by github.com/voxmedia/meme and a Tweet
+  twitter.com/CodePen/status/482595868215103489
+
+  Recruiting some help from the following sources:
+  meltingice.github.io/psd.js
+  github.com/eligrey
+
+-->
+
+<aside>
+  <h1>
+    Meme Genarator
+  </h1>
+  <div class="drop">
+    Drop an image file here
+    <span>Accepted: JP(E)G, PNG, GIF, BMP, PSD</span>
+    <input type="file" accept="image/*;capture=camera" onchange="jsMeme.file.import(this)" />
+  </div>
+  <form class="webcam" style="display: none">
+    <video></video>
+    <button class="fr" onclick="return jsMeme.webcam.reset(), !1">Retry</button>
+    <button class="blue" onclick="return jsMeme.webcam.take(), !1">Take</button>
+  </form>
+  <form>
+    <button onclick="return jsMeme.file.rotate(-90), !1"><i class="fa fa-rotate-left"></i></button>
+    <button onclick="return jsMeme.file.rotate(90), !1"><i class="fa fa-rotate-right"></i></button>
+  </form>
+  <form>
+    <input type="text" placeholder="Type your first line..." name="line-1" />
+    <input type="text" placeholder="Type your second line..." name="line-2" />
+    <label><input type="text" size="14" placeholder="Image Size..." value="550" name="maximum-width" class="slider" min="200" max="1024" /> <em>Width: <span name="img-width">550px</span></em></label>
+  </form>
+  <form>
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="33%" align="left" valign="top">
+          <label class="layout-type default">
+            <em></em>
+            <input type="radio" name="layout-type" value="default" onchange="jsMeme.captions.layout(this.value)" checked />
+            <b></b>
+          </label>
+        </td>
+        <td width="33%" align="center" valign="top">
+          <label class="layout-type classic">
+            <em></em>
+            <input type="radio" name="layout-type" value="classic" onchange="jsMeme.captions.layout(this.value)" />
+            <b></b>
+          </label>
+        </td>
+        <td width="33%" align="right" valign="top">
+          <label class="layout-type classic-split">
+            <em></em>
+            <input type="radio" name="layout-type" value="classic-split" onchange="jsMeme.captions.layout(this.value)" />
+            <b></b>
+          </label>
+        </td>
+      </tr>
+    </table>
+  </form>
+  <form onsubmit="return jsMeme.file.export(), !1">
+    <button class="fr" onclick="return jsMeme.reset(), !1">Reset</button>
+    <button class="blue">Download Image</button>
+  </form>
+</aside>
+<main>
+  <div class="canvas-container">
+    <canvas></canvas>
+  </div>
+  <div class="not-ready">
+    <button class="dark">
+      Choose an image file to get started
+      <input type="file" accept="image/*;capture=camera" onchange="jsMeme.file.import(this)" />
+    </button>
+  </div>
+</main>
+<!-- partial -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/blob-polyfill/2.0.20171115/Blob.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/3.14.0/js/canvas-to-blob.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/psd.js/3.2.0/psd.min.js'></script>
+    <script src="{% static 'blog/memescript.js' %}"></script>
+
+</body>
+</html>

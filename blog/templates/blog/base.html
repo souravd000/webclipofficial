@@ -1,0 +1,324 @@
+{% load static %}
+{% load recommended %}
+{% load notifications_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Webclip </title>
+    <!-- Search Engine -->
+    <meta name="description" content="Join Webclip today to post what you love,  photos, videos & messages with friends & family. Connect with more people on a global scale.">
+    <meta name="image" content="https://webclip-store.s3.ap-south-1.amazonaws.com/webclip2.png">
+    <meta name="google-site-verification" content="6BeruZVpTzoMl_npFWjKMe_dAhBr0x1wQQJLfkVpdFo" />
+    <!-- Schema.org for Google -->
+    <meta itemprop="name" content="Webclip">
+    <meta itemprop="description" content="Join Webclip today to post what you love,  photos, videos & messages with friends & family. Connect with more people on a global scale.">
+    <meta itemprop="image" content="https://webclip-store.s3.ap-south-1.amazonaws.com/webclip2.png">
+    <link rel="shortcut icon" href="https://webclip-store.s3.ap-south-1.amazonaws.com/aboutimages/favicon.ico">
+    {% block head %}{% endblock %}
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet" />
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/upda.css' %}">
+    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
+    <link href="https://unpkg.com/video.js@7/dist/video-js.min.css" rel="stylesheet"/>
+    <link href="https://unpkg.com/@videojs/themes@1/dist/forest/index.css" rel="stylesheet"/>
+    <link rel='stylesheet' href='https://unpkg.com/plyr@3/dist/plyr.css'>
+
+
+    <link rel="icon" href="https://webclip-store.s3.ap-south-1.amazonaws.com/webclip2.png" type="image/x-icon" />
+</head>
+<body>
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <!-- Container wrapper -->
+            <div class="container-fluid justify-content-between">
+                {% if user.is_authenticated %}
+                <!--left element-->
+                <div class="d-flex">
+                    <a class="navbar-brand" href="{% url 'blog-home' %}">
+                        <img src="https://webclip-store.s3.ap-south-1.amazonaws.com/webclip-log-name.png" height="30" alt="" loading="lazy"/>
+                    </a>
+                    <form class="" method="GET" action='{% url "blog-home" %}'>
+                        <div class="input-group">
+                            <span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span>
+                            <input type="search"  name="q" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" value="{{ request.GET.q }}"/>
+                        </div>
+                    </form>
+                </div>
+                <!--left element-->
+                <!--center element-->
+                <div>
+                    <ul class="navbar-nav d-flex flex-row">
+                      <!-- Icons -->
+                      <li class="nav-item me-3 me-lg-5">
+                        <a class="nav-link" href="{% url 'blog-home' %}">
+                          <i class="fas fa-home fa-lg"></i>
+                        </a>
+                      </li>
+                      <li class="nav-item me-3 me-lg-5">
+                        <a class="nav-link" href="{% url 'most-likes' %}">
+                          <span><i class="fas fa-fire fa-lg"></i></span>
+                        </a>
+                      </li>
+                      <li class="nav-item me-3 me-lg-5">
+                        <a class="nav-link" href="{% url 'blog-nearfriend' %}">
+                          <span><i class="far fa-eye fa-lg"></i></span>
+                        </a>
+                      </li>
+                      <li class="nav-item me-3 me-lg-5">
+                        <a class="nav-link" href="{% url 'post_watchlist_list' %}">
+                          <span><i class="far fa-star fa-lg"></i></span>
+                        </a>
+                      </li>
+                    </ul>
+                </div>
+                <!--center element-->
+                <!--right element-->
+                <div>
+                    <ul class="navbar-nav d-flex flex-row">
+                      <!-- Icons -->
+                      <li class="nav-item dropdown me-3 me-lg-5">
+                        <a
+                              class="nav-link dropdown-toggle hidden-arrow"
+                              href="#"
+                              id="navbarDropdownMenuLink"
+                              role="button"
+                              data-mdb-toggle="dropdown"
+                              aria-expanded="false"
+                        >
+
+                            <i class="fas fa-feather-alt fa-lg"></i>
+                        </a>
+                        <ul
+                              class="dropdown-menu dropdown-menu-end"
+                              aria-labelledby="navbarDropdownMenuLink"
+                        >
+                            <li>
+                                <a class="dropdown-item" href="{% url 'post-create' %}">
+                                    <span><i class="fas fa-images fa-lg"></i></span><span class="ps-2">Pictures/Videos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'audiost-create' %}">
+                                    <span><i class="fas fa-music fa-lg"></i></span><span class="ps-2">Audio</span>
+                                </a>
+                            </li>
+                        </ul>
+                      </li>
+
+                      <li class="nav-item me-3 me-lg-5">
+                        <a class="nav-link" href="{% url 'notifications:all' %}">
+                          <span><i class="far fa-bell fa-lg"></i></span>
+                          <span class="badge rounded-pill badge-notification bg-danger">{% live_notify_badge badge_class="badge" %}</span>
+                        </a>
+                      </li>
+                      <li class="nav-item me-3 me-lg-5">
+                        <a class="nav-link" href="{% url 'inbox' %}">
+                          <span><i class="fas fa-paper-plane fa-lg"></i></span>
+                          {% if directs_count %}
+                          <span class="badge rounded-pill badge-notification bg-danger">{{ directs_count }}</span>
+                          {% endif %}
+                        </a>
+                      </li>
+
+                      <li class="nav-item dropdown me-3 me-lg-1">
+                          <a
+                              class="nav-link dropdown-toggle hidden-arrow"
+                              href="#"
+                              id="navbarDropdownMenuLink"
+                              role="button"
+                              data-mdb-toggle="dropdown"
+                              aria-expanded="false"
+                            >
+                              <i class="fas fa-user fa-lg"></i>
+                            </a>
+                            <ul
+                              class="dropdown-menu dropdown-menu-end"
+                              aria-labelledby="navbarDropdownMenuLink"
+                            >
+                              <li>
+                                  <a class="dropdown-item" href="{% url 'profile' %}">
+                                    <span><i class="fas fa-user fa-lg"></i></span><span class="ps-2">profile</span>
+                                  </a>
+                             </li>
+                              <li>
+                                  <a class="dropdown-item" href="{% url 'logout' %}">
+                                    <span><i class="fas fa-power-off fa-lg"></i></span><span class="ps-2">logout</span>
+                                  </a>
+                             </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!--right element-->
+            </div>
+            {% endif %}
+            <!-- Container wrapper -->
+        </nav>
+            <!-- Navbar -->
+    </header>
+
+          {% block content %}{% endblock %}
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js'></script> <!--problem with 3.1.0 jquery as its not working on comment section properly in content refreshing system-->
+    <script src="https://kit.fontawesome.com/34abf3621c.js" crossorigin="anonymous"></script>
+    <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
+    <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+    <script src="//cdn.pushbots.com/js/sdk.min.js" type="text/javascript" onload="PB.init()" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
+    <script src='https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL'></script>
+    <script src='https://unpkg.com/plyr@3'></script>
+        {% block javascript %}{% endblock %}
+
+
+    <script type="text/javascript">
+
+        const player = new Plyr('audio', {});
+
+    // Expose player so it can be used from the console
+        window.player = player;
+
+        var d = $('#tt12');
+        d.scrollTop(d.prop("scrollHeight"));
+
+        $(document).ready(function(){
+            $('.like2-btn').click(()=>{
+                $('#exampleModal').modal('show');
+                setTimeout(() => {
+                    $('#exampleModal').modal('hide');
+                },1000);
+            });
+        });
+        $(document).ready(function(){
+            $('.dislike2-btn').click(()=>{
+                $('#exampleModal2').modal('show');
+                setTimeout(() => {
+                    $('#exampleModal2').modal('hide');
+                },1000);
+            });
+        });
+
+
+        $(document).ready(function() {
+            $('.reply-btn').click(function() {
+               $(this).parent().parent().next('.replied-comments').fadeToggle()
+            });
+        });
+
+
+        $(document).ready(function() {
+          $("p").each(function(data) {
+            var strText = $(this).html();
+            console.log('1. strText=', strText);
+            var arrElems = strText.match(/#[a-zA-Z0-9]+/g);
+            console.log('arrElems=', arrElems);
+            $.each(arrElems, function(index, value){
+                strText = strText.toString().replace(value, '<a href="/tags/'+value.replace('#', '')+'">'+value+'</a>');
+            });
+            console.log('2. strText=', strText);
+            $(this).html(strText);
+          });
+        });
+
+        $(document).ready(function() {
+          $("p").each(function(data) {
+            var strText = $(this).html();
+            console.log('1. strText=', strText);
+            var arrElems = strText.match(/@[a-zA-Z0-9]+/g);
+            console.log('arrElems=', arrElems);
+            $.each(arrElems, function(index, value){
+                strText = strText.toString().replace(value, '<a href="/user/'+value.replace('@', '')+'">'+value+'</a>');
+            });
+            console.log('2. strText=', strText);
+            $(this).html(strText);
+          });
+        });
+
+        $(document).on('click', '#like', function(event){
+                  event.preventDefault();
+                  var pk = $(this).attr('value');
+                  $.ajax({
+                    type: 'POST',
+                    url: '{% url "like_post" %}',
+                    data: {'id':pk, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                    dataType: 'json',
+                    success: function(response){
+                      $('#like-section').html(response['form'])
+                      console.log($('#like-section').html(response['form']));
+                    },
+                    error: function(rs, e){
+                      console.log(rs.responseText);
+                    },
+                  });
+                });
+
+
+        $(document).on('submit', '.comment-form', function(event){
+           event.preventDefault();
+           console.log($(this).serialize());
+           $.ajax({
+              type: 'POST',
+              url: $(this).attr('action'),
+              cache: false,
+              data: $(this).serialize(),
+              dataType: 'Json',
+              success: function(response) {
+                $('.main-comment-section').html(response['form']);
+                $('textarea').val('');
+                $('.reply-btn').click(function() {
+                   $(this).parent().parent().next('.replied-comments').fadeToggle()
+                   $('textarea').val('');
+                });
+              },
+              error: function(rs, e) {
+                console.log(rs.responseText)
+              },
+
+           });
+        });
+
+        $(document).on('submit', '.reply-form', function(event){
+           event.preventDefault();
+           console.log($(this).serialize());
+           $.ajax({
+              type: 'POST',
+              url: $(this).attr('action'),
+              cache: false,
+              data: $(this).serialize(),
+              dataType: 'Json',
+              success: function(response) {
+                $('.main-comment-section').html(response['form']);
+                $('textarea').val('');
+                $('.reply-btn').click(function() {
+                   $(this).parent().parent().next('.replied-comments').fadeToggle()
+                   $('textarea').val('');
+                });
+              },
+              error: function(rs, e) {
+                console.log(rs.responseText)
+              },
+
+           });
+        });
+    </script>
+</body>
+</html>

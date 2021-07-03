@@ -1,0 +1,37 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    <div class="article-metadata">
+        <div class="col-sm-6">
+            <article class="content-section">
+            <h3>Other People</h3>
+            {% for user in users %}
+                <a href="{% url 'user-posts' user.username %}">
+                    <div class="article-metadata">
+                           <img class="article-img rounded-circle" src="{{ user.profile.image.url }}">
+                           <h6>{{ user.username }}</h6>
+                </a>
+                    {% if not user in friends %}
+                    <a href="{% url 'change_friends' operation='add' pk=user.pk %}">
+                        <button type="button" class="btn btn-default">follow</button>
+                    </a>
+                    {% endif %}
+                    </div>
+            {% endfor %}
+            </article>
+        </div>
+        <div class="col-md-4">
+            <article class="content-section">
+            <h3>Friends</h3>
+            {% for friend in friends %}
+                <a href="{% url 'user-posts' friend.username %}">
+                    <img class="article-img rounded-circle" src="{{ friend.profile.image.url }}">
+                    <h6>{{ friend.username }}</h6>
+                </a>
+                    <a href="{% url 'change_friends' operation='remove' pk=friend.pk %}">
+                     <button type="button" class="btn btn-default">Unfollow</button>
+                    </a>
+            {% endfor %}
+            </article>
+        </div>
+    </div>
+{% endblock content %}

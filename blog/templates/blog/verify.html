@@ -1,0 +1,41 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<main role="main" class="container">
+    <div class="row">
+        <div class="col-md-3 d-none d-lg-block">
+            <section class="newsfeed my-4">
+                <div class="card">
+                    <div class="card-header"><strong class="display-6">Settings</strong></div>
+                    <ul class="list-group">
+                      <a class="text-reset" href="{% url 'verify-profile' %}"><li class="list-group-item active" aria-current="true">Verify Profile</li></a>
+                      <a class="text-reset" href="{% url 'popular' %}"><li class="list-group-item">Apply for Popular Badge</li></a>
+                      <a class="text-reset" href="{% url 'password_reset' %}"><li class="list-group-item">Reset Password</li></a>
+                      <a class="text-reset" href="{% url 'help-center' %}"><li class="list-group-item">Help Center</li></a>
+                      <a class="text-reset" href="{% url 'reportpost' %}"><li class="list-group-item">Report a post</li></a>
+                      <a class="text-reset" href="{% url 'reportprofile' %}"><li class="list-group-item">Report a profile</li></a>
+                      <a class="text-reset" href="{% url 'privacy-policy' %}"><li class="list-group-item">Privacy Policy</li></a>
+                      <a class="text-reset" href="{% url 'terms' %}"><li class="list-group-item">Terms</li></a>
+                      <a class="text-reset" href="{% url 'deleteaccount' %}"><li class="list-group-item">Request for Delete Account</li></a>
+                    </ul>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-9 last">
+            <section class="newsfeed my-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="display-4 text-info">Profile Verification <i class="fas fa-check-circle" style="color:#1da1f2"></i></h4>
+                        <p class="text-muted">To verify your profile, follow the steps below:</p>
+                        <p>1. Update your profile with your name, profile photo, Date of Birth, and Location. You have to make those changes before submitting the form.</p>
+                        <p>2. Make sure Your Display Name, Date of birth, and location are as same as your Government Authorized Id information.</p>
+                        <p>3. Make sure you change your profile picture with a current single photo of yours.</p>
+                        <p>4. Don't change your information until your profile verification otherwise we will not be able to verify your profile.</p>
+                        <p>5. Click on the <a href="https://docs.google.com/forms/d/e/1FAIpQLSe7XJB33ahlCBaJU0pPTdaT17b4ycl3TUPjMcybVepl9HSZBA/viewform?usp=sf_link">link</a> or the <strong>Verify</strong> button below and submit the form.</p>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe7XJB33ahlCBaJU0pPTdaT17b4ycl3TUPjMcybVepl9HSZBA/viewform?usp=sf_link"><button class="btn btn-outline-dark btn-rounded">Verify</button></a>
+                        <p class="note note-info">Note: We will shortly notify you. The process may take 3 to 4 days. After getting your verified profile badge or a blue tick, You can change your profile informations as your wish. </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock content %}

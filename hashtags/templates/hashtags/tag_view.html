@@ -1,0 +1,315 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <section class="newsfeed my-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <img class="ms-2" src="https://webclip-store.s3.ap-south-1.amazonaws.com/hashtag.png" height="70">
+                                <div class="p-2">
+                                   <h5 class="card-title flex-fill ms-4">#{{ obj.tag }}</h5>
+                                   <h6 class="fw-lighter ms-4"><strong>{{ obj.get_postss.count }}</strong> Post{{ obj.get_postss.count | pluralize }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="newsfeed">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Tabs navs -->
+                            <ul class="nav nav-tabs nav-justified mb-3" id="ex1" role="tablist">
+                              <li class="nav-item" role="presentation">
+                                <a
+                                  class="nav-link active"
+                                  id="ex1-tab-0"
+                                  data-mdb-toggle="tab"
+                                  href="#ex1-tabs-0"
+                                  role="tab"
+                                  aria-controls="ex1-tabs-0"
+                                  aria-selected="true"
+                                  >Post</a
+                                >
+                              </li>
+                              <li class="nav-item" role="presentation">
+                                <a
+                                  class="nav-link"
+                                  id="ex1-tab-1"
+                                  data-mdb-toggle="tab"
+                                  href="#ex1-tabs-1"
+                                  role="tab"
+                                  aria-controls="ex1-tabs-1"
+                                  aria-selected="true"
+                                  >Photos</a
+                                >
+                              </li>
+                              <li class="nav-item" role="presentation">
+                                <a
+                                  class="nav-link"
+                                  id="ex1-tab-2"
+                                  data-mdb-toggle="tab"
+                                  href="#ex1-tabs-2"
+                                  role="tab"
+                                  aria-controls="ex1-tabs-2"
+                                  aria-selected="false"
+                                  >Videos</a
+                                >
+                              </li>
+                              <li class="nav-item" role="presentation">
+                                <a
+                                  class="nav-link"
+                                  id="ex1-tab-3"
+                                  data-mdb-toggle="tab"
+                                  href="#ex1-tabs-3"
+                                  role="tab"
+                                  aria-controls="ex1-tabs-3"
+                                  aria-selected="false"
+                                  >Audios</a
+                                >
+                              </li>
+                            </ul>
+                            <!-- Tabs navs -->
+
+                            <!-- Tabs content -->
+                            <div class="tab-content" id="ex1-content">
+                                <div class="tab-pane fade show active" id="ex1-tabs-0" role="tabpanel" aria-labelledby="ex1-tab-0">
+                                    <div class="container">
+                                        <div class="row justify-content-center">
+                                            <div class="col-md-7 px-0 mx-0">
+                                                <section class="newsfeed my-2">
+                                                    {% for post in obj.get_postss %}
+                                                        {% if post.parent %}
+                                                        <article class="content-section shadow-5">
+                                                            <div class="d-inline p-2 bg-light text-muted"><i class="fas fa-exchange-alt"></i> Reposted </div>
+                                                            <div class="article-metadata">
+                                                                <div class="img">
+                                                                   <img class="article-img rounded-circle" src="{{ post.author.profile.image.url }}" style="object-fit: cover;">
+                                                                </div>
+                                                                <div class="profile-info">
+                                                                  <a class="h2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a><small>{% if post.author.profile.verify_account %}<i class="fas fa-check-circle ml-1" style="color:#1da1f2;"></i>{% endif %} {% if post.author.profile.vip_verify_account %}<i class="fas fa-crown" style="color:#25D366;"></i>{% endif %}</small>
+                                                                  <div class="text-muted">{{ post.date_posted | timesince }}</div>
+                                                                </div>
+                                                                <div class="options">
+                                                                    {% if post.author == user %}
+                                                                    <a href="{% url 'post-update' pk=post.pk %}">
+                                                                       <button type="button" class="btn btn-sm button-outline-dark btn-rounded"><i class="fas fa-pen"></i></button>
+                                                                    </a>
+                                                                    <a href="{% url 'post-delete' pk=post.pk %}">
+                                                                       <button type="button" class="btn btn-outline-dark btn-sm btn-rounded"><i class="fas fa-trash"></i></button>
+                                                                    </a>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                            <a class="article-content" href="{% url 'post-detail' pk=post.pk %}" ><p class="mb-0">{{ post.content | truncatechars:100 }}</p></a>
+                                                            <article class="content-section">
+                                                                <div class="article-metadata">
+                                                                    <div class="img">
+                                                                       <img class="article-img rounded-circle" src="{{ post.parent.author.profile.image.url }}" style="object-fit: cover;">
+                                                                    </div>
+                                                                    <div class="profile-info">
+                                                                      <a class="h2" href="{% url 'user-posts' post.parent.author.username %}">{{ post.parent.author }}</a><small>{% if post.parent.author.profile.verify_account %}<i class="fas fa-check-circle ml-1" style="color:#1da1f2;"></i>{% endif %} {% if post.parent.author.profile.vip_verify_account %}<i class="fas fa-crown" style="color:#25D366;"></i>{% endif %}</small>
+                                                                      <div class="text-muted">{{ post.parent.date_posted }}</div>
+                                                                    </div>
+                                                                </div>
+                                                                {% if post.parent.image %}
+                                                                <img class="img-fluid mx-auto d-block" src="{{ post.parent.image.url }}">
+                                                                <div class="mb-1"></div>
+                                                                {% endif %}
+                                                                <div class="d-flex justify-content-center">
+                                                                    {% if post.parent.audio %}
+                                                                            <div class="card mb-2">
+                                                                              <div class="row g-0">
+                                                                                <div class="col-md-4">
+                                                                                  {% if post.parent.audio_poster %}
+                                                                                  <img src="{{ post.parent.audio_poster.url }}" class="img-fluid mx-auto d-block"/>
+                                                                                  {% else %}
+                                                                                    <img src="https://webclip-store.s3.ap-south-1.amazonaws.com/posterdefault.jpg" class="img-fluid mx-auto d-block"/>
+                                                                                  {% endif %}
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                  <div class="card-body">
+                                                                                    {% if post.parent.audio_name %}
+                                                                                    <h6 class="card-title my-0"><small><i class="fas fa-music mr-2 text-muted"></i></small>{{ post.parent.audio_name }}</h6>
+                                                                                    {% else %}
+                                                                                    <h6 class="card-title my-0"><small><i class="fas fa-music mr-2 text-muted"></i></small>webclip music</h6>
+                                                                                    {% endif %}
+                                                                                    {% if post.parent.audio_artist_name %}
+                                                                                    <small class="card-subtitle my-0 text-muted lh-1"><i class="fas fa-microphone-alt mr-2"></i>{{ post.parent.audio_artist_name }}</small>
+                                                                                    {% else %}
+                                                                                    <small class="card-subtitle my-0 text-muted lh-1"><i class="fas fa-microphone-alt mr-2"></i>Unknow</small>
+                                                                                    {% endif %}
+                                                                                    <a class="btn btn-primary btn-lg btn-floating float-right" style="background-color: #12d4f2" href="{% url 'post-detail' pk=post.parent.pk %}" role="button"><i class="fas fa-play"></i></a>
+                                                                                  </div>
+                                                                                </div>
+                                                                               </div>
+                                                                            </div>
+                                                                    {% endif %}
+                                                                </div>
+                                                                {% if post.parent.video %}
+                                                                    <video width="100%" class="video-js vjs-theme-forest vjs-fluid" controls preload="auto" data-setup='{ "playbackRates": [1, 1.5, 2] }' style="left: 0px; top: 0px;">
+                                                                        <source src="{{ post.parent.video.url }}" type="video/mp4">
+                                                                    </video>
+                                                                {% endif %}
+                                                                <a class="article-content" href="{% url 'post-detail' pk=post.parent.pk %}" ><p class="border-left">{{ post.parent.content | truncatechars:500 }}</p></a>
+                                                            </article>
+                                                            <div class="d-flex mb-0">
+                                                                <div class=" me-auto p-2 px-0 py-0">
+                                                                    <a class="text-muted" href="{% url 'post-likes' pk=post.pk %}">
+                                                                        <p>{{ post.total_likes }}like{{ post.total_likes|pluralize}}</p>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="p-2 px-0 py-0">
+                                                                    <p>
+                                                                       <a class="text-muted" href="{% url 'post-detail' pk=post.pk %}">{{ post.comments.count }}comment{{ post.comments.count|pluralize }}</a>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                        {% else %}
+                                                        <article class="content-section shadow-5">
+                                                            <div class="article-metadata">
+                                                                <div class="img">
+                                                                   <img class="article-img rounded-circle" src="{{ post.author.profile.image.url }}" style="object-fit: cover;">
+                                                                </div>
+                                                                <div class="profile-info">
+                                                                  <a class="h2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a><small>{% if post.author.profile.verify_account %}<i class="fas fa-check-circle ml-1" style="color:#1da1f2;"></i>{% endif %} {% if post.author.profile.vip_verify_account %}<i class="fas fa-crown" style="color:#25D366;"></i>{% endif %}</small>
+                                                                  <div class="text-muted">{{ post.date_posted | timesince }}</div>
+                                                                </div>
+                                                                <div class="options">
+                                                                    {% if post.author == user %}
+                                                                    <a href="{% url 'post-update' pk=post.pk %}">
+                                                                       <button type="button" class="btn btn-outline-dark btn-sm btn-rounded"><i class="fas fa-pen"></i></button>
+                                                                    </a>
+                                                                    <a href="{% url 'post-delete' pk=post.pk %}">
+                                                                       <button type="button" class="btn btn-sm btn-outline-dark btn-rounded"><i class="fas fa-trash"></i></button>
+                                                                    </a>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                            {% if post.image %}
+                                                                <img class="img-fluid mx-auto d-block" src="{{ post.image.url }}">
+                                                                <div class="mb-1"></div>
+                                                            {% endif %}
+                                                            <!--audio player-->
+                                                            {% if post.audio %}
+                                                                <div class="card mb-2">
+                                                                  <div class="row g-0">
+                                                                    <div class="col-md-4">
+                                                                      {% if post.audio_poster %}
+                                                                      <img src="{{ post.audio_poster.url }}" class="img-fluid mx-auto d-block"/>
+                                                                      {% else %}
+                                                                      <img src="https://webclip-store.s3.ap-south-1.amazonaws.com/posterdefault.jpg" class="img-fluid mx-auto d-block"/>
+                                                                      {% endif %}
+                                                                    </div>
+                                                                    <div class="col-md-8">
+                                                                      <div class="card-body">
+                                                                        {% if post.audio_name %}
+                                                                        <h6 class="card-title my-0"><small><i class="fas fa-music mr-2 text-muted"></i></small>{{ post.audio_name }}</h6>
+                                                                        {% else %}
+                                                                        <h6 class="card-title my-0"><small><i class="fas fa-music mr-2 text-muted"></i></small>webclip music</h6>
+                                                                        {% endif %}
+                                                                        {% if post.audio_artist_name %}
+                                                                        <small class="card-subtitle my-0 text-muted lh-1"><i class="fas fa-microphone-alt mr-2"></i>{{ post.audio_artist_name }}</small>
+                                                                        {% else %}
+                                                                        <small class="card-subtitle my-0 text-muted lh-1"><i class="fas fa-microphone-alt mr-2"></i>unknown</small>
+                                                                        {% endif %}
+                                                                        <a class="btn btn-primary btn-lg btn-floating float-right" style="background-color: #12d4f2" href="{% url 'post-detail' pk=post.pk %}" role="button"><i class="fas fa-play"></i></a>
+                                                                      </div>
+                                                                    </div>
+                                                                   </div>
+                                                                </div>
+                                                            {% endif %}
+                                                            <!---audio-->
+                                                            {% if post.video %}
+                                                            <video width="100%" class="video-js vjs-theme-forest vjs-fluid" controls preload="auto" data-setup='{ "playbackRates": [1, 1.5, 2] }' style="left: 0px; top: 0px;">
+                                                                <source src="{{ post.video.url }}" type="video/mp4">
+                                                            </video>
+                                                            <!--<video width="100%" controlslist="nodownload" style="left: 0px; top: 0px;" controls-->
+                                                            {% endif %}
+                                                              <a class="article-content" href="{% url 'post-detail' post.id %}"><p>{{ post.content|truncatechars:500 }}</p></a>
+                                                            <div class="d-flex mb-0">
+                                                                <div class=" me-auto p-2 px-0 py-0">
+                                                                    <a class="text-muted" href="{% url 'post-likes' pk=post.pk %}">
+                                                                        <p>{{ post.total_likes }}like{{ post.total_likes|pluralize}}</p>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="p-2 px-0 py-0">
+                                                                    <p>
+                                                                       <a class="text-muted" href="{% url 'post-detail' pk=post.pk %}">{{ post.comments.count }}comment{{ post.comments.count|pluralize }}</a>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              <div class="tab-pane fade " id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+                                <div class="container">
+                                    <div class ="row justify-content-start">
+                                        {% for post in obj.get_postss %}
+                                            {% if post.image %}
+                                        <div class="col-4 my-2 px-1">
+                                            <a class="" href="{% url 'post-detail' pk=post.pk %}">
+                                                <img class="photos-img img-fluid" src="{{ post.image.url }}" style="object-fit: cover;">
+                                        </div>
+                                        {% endif %}
+                                            {% endfor %}
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+                                <div class="container">
+                                    <div class="row justify-content-start">
+                                        {% for post in obj.get_postss %}
+                                            {% if post.video %}
+                                        <div class="col-4 my-2 px-1">
+                                            <a href="{% url 'post-detail' pk=post.pk %}">
+                                                <video width=100%>
+                                                    <source src="{{ post.video.url }}">
+                                                </video>
+                                            </a>
+                                        </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+                                <div class="container">
+                                    <div class="row justify-content-start">
+                                        {% for post in obj.get_postss %}
+                                            {% if post.audio %}
+                                        <div class="col-6 my-2 px-1">
+                                            <a class="text-reset text-decoration-none" href="{% url 'post-detail' pk=post.pk %}">
+                                                <div clas="card border">
+                                                    <div class="card-body d-flex justify-content-start">
+                                                        {% if post.audio %}
+                                                            {% if post.audio_name %}<p class="card-text fw-light fs-6 text-reset">{{ post.audio_name }}</p>{% else %}<p class="card-text fw-light fs-6 text-reset">webclip music</p>{% endif %}
+                                                        <div class="ms-auto p-2"><i class="fas fa-play"></i></div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Tabs content -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

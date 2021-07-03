@@ -1,0 +1,33 @@
+from django.urls import path, re_path
+from blog.views import PostCreateView, PostUpdateView, PostDeleteView, RepostView, UserDetailView, UserFollowView, PostListView, CommentDeleteView, ErloListView, AudioCreateView
+from . import views
+urlpatterns = [
+    path('', PostListView.as_view(), name='blog-home'),
+    #path('user/<str:username>', UserPostListView.as_view(), name='user-posts'),
+    path('user/<str:username>', UserDetailView.as_view(), name='user-posts'),
+    path('user/<str:username>/follow/', UserFollowView.as_view(), name='follow'),
+    path('post/<int:pk>/', views.post_detail, name='post-detail'),
+    path('post/<int:pk>/repost/', RepostView.as_view(), name='repost'),
+    path('post/new/', PostCreateView.as_view(), name='post-create'),
+    path('post/upload/', views.django_image_and_file_upload_ajax, name="upload"),
+    path('post/new/audio/', AudioCreateView.as_view(), name='audiost-create'),
+    path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
+    path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
+    path('post/<int:pk>/comment/delete/', CommentDeleteView.as_view(), name='comment-delete'),
+    path('post/<int:pk>/postlikes/', views.post_likes, name='post-likes'),
+    path('post/<int:pk>/watchlist/', views.post_watchlist, name='watchlist'),
+    path('post/post_watchlist/', views.post_watchlist_list, name='post_watchlist_list'),
+    path('post/mostlikes/', views.most_likes, name='most-likes'),
+    path('following_posts/', ErloListView.as_view(), name='blog-nearfriend'),
+    path('about/', views.PhotoE, name='about-webclip'),
+    path('tos/', views.memegen, name='terms'),
+    path('privacy/', views.privacypolicy, name='privacy-policy'),
+    path('helpcenter/', views.helpcenter, name='help-center'),
+    path('contact/', views.contact, name='contact'),
+    path('verify/', views.verificaacc, name='verify-profile'),
+    path('popularbadge/', views.contribacc, name='popular'),
+    path('reportpost/', views.reportpost, name='reportpost'),
+    path('reportprofile/', views.reportprofile, name='reportprofile'),
+    path('deleteaccount/', views.accdlt, name='deleteaccount'),
+    path('donation/', views.donation, name='donations'),
+]

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Add meta tags for mobile and IE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title> PayPal Smart Payment Buttons Integration | Client Demo </title>
+</head>
+
+<body>
+    <!-- Set up a container element for the button -->
+    <div id="paypal-button-container"></div>
+    <div class="p-2">
+        <p>
+            <a href="https://forms.gle/GD7kfUbgyQSthNbCA">verification</a>
+        </p>
+    </div>
+
+    <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AVQS8QBFwEhBMcyAF27zFoOmOtc9PdS_Icc-UnBlVWtcgQtQnqyIgS5HQ03z1cdQ182hwvQyfF09Tjv7&currency=USD"></script>
+
+    <script>
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+            // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '1.00'
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Show a success message to the buyer
+                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+    </script>
+</body>
+
+</html>

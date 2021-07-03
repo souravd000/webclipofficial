@@ -1,0 +1,15 @@
+{% for owner in recommended %}
+<div class="d-flex justify-content-start">
+    <div class="p-2">
+        <img class="article-img rounded-circle" src="{{ owner.user.profile.image.url }}" style="object-fit: cover;">
+    </div>
+    <div class="p-2">
+        <a class="h2" href="{% url 'user-posts' owner.user.username %}">{{ owner.user.username }} </a> <small> {% if owner.user.profile.verify_account %}<i class="fas fa-check-circle ml-1" style="color:#1da1f2;"></i>{% endif %} {% if owner.user.profile.vip_verify_account %}<i class="fas fa-crown" style="color:#25D366;"></i>{% endif %}</small>
+    </div>
+    <div class="ml-auto p-2">
+        <a href="{% url 'user-posts' owner.user.username %}">
+            <button type="button" class="btn btn-primary">Follow</button>
+        </a>
+    </div>
+</div>
+{% endfor %}

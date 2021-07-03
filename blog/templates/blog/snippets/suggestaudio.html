@@ -1,0 +1,28 @@
+{% for post in postsall %}
+{% if post.audio %}
+    <div class="card mb-2">
+        <div class="row g-0">
+            <div class="col-md-4">
+                {% if post.audio_poster %}
+                    <img src="{{ post.audio_poster.url }}" class="img-fluid mx-auto d-block" loading="lazy">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    {% if post.audio_name %}
+                    <h6 class="card-title my-0"><small><i class="fas fa-music mr-2 text-muted"></i></small>{{ post.audio_name }}</h6>
+                    {% else %}
+                    <h6 class="card-title my-0"><small><i class="fas fa-music mr-2 text-muted"></i></small>webclip music</h6>
+                    {% endif %}
+                    {% if post.audio_artist_name %}
+                    <small class="card-subtitle my-0 text-muted lh-1"><i class="fas fa-microphone-alt mr-2"></i>{{ post.audio_artist_name }}</small>
+                    {% else %}
+                    <small class="card-subtitle my-0 text-muted lh-1"><i class="fas fa-microphone-alt mr-2"></i>unknown</small>
+                    {% endif %}
+                    <a class="btn btn-primary btn-lg btn-floating float-right" style="background-color: #12d4f2" role="button" href="{% url 'post-detail' pk=post.pk %}"><i class="fas fa-play"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endfor %}

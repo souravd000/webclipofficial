@@ -1,0 +1,321 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %
+{% load suggest %}
+{% load suggestaudio %}
+{% block head %}
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:title" content="Login to webclip or create an account">
+    <meta property="twitter:description" content="{{ posts.content }}">
+    <meta property="twitter:image:src" content="">
+{% endblock head %}
+{% block content %}
+<main>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-7">
+                <section class="newsfeed my-5">
+                    {% if posts.parent %}
+                    <article class="content-section">
+                        <div class="d-inline p-2 bg-light text-muted"><i class="fas fa-exchange-alt"></i> Reposted </div>
+                        <div class="article-metadata">
+                            <div class="img">
+                               <img class="article-img rounded-circle" src="{{ posts.author.profile.image.url }}" style="object-fit: cover;">
+                            </div>
+                            <div class="profile-info">
+                              <a class="h2" href="{% url 'user-posts' posts.author.username %}">{{ posts.author }}</a><small>{% if posts.author.profile.verify_account %}<i class="fas fa-check-circle ml-1" style="color:#1da1f2;"></i>{% endif %} {% if posts.author.profile.vip_verify_account %}<i class="fas fa-crown" style="color:#25D366;"></i>{% endif %}</small>
+                              <div class="text-muted">{{ posts.date_posted | timesince }}</div>
+                            </div>
+                            <div class="options">
+                                {% if posts.author == user %}
+                                <a href="{% url 'post-update' pk=posts.pk %}">
+                                   <button type="button" class="btn btn-outline-dark btn-rounded btn-sm"><i class="fas fa-pen"></i></button>
+                                </a>
+                                <a href="{% url 'post-delete' pk=posts.pk %}">
+                                   <button type="button" class="btn btn-outline-dark btn-rounded btn-sm"><i class="fas fa-trash"></i></button>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <p class="mb-0">{{ posts.content}}</p>
+                        <article class="content-section">
+                            <div class="article-metadata">
+                                <div class="img">
+                                   <img class="article-img rounded-circle" src="{{ posts.parent.author.profile.image.url }}" style="object-fit: cover;">
+                                </div>
+                                <div class="profile-info">
+                                  <a class="h2" href="{% url 'user-posts' posts.parent.author.username %}">{{ posts.parent.author }}</a><small>{% if posts.parent.author.profile.verify_account %}<i class="fas fa-check-circle ml-1" style="color:#1da1f2;"></i>{% endif %} {% if posts.parent.author.profile.vip_verify_account %}<i class="fas fa-crown" style="color:#25D366;"></i>{% endif %}</small>
+                                  <div class="text-muted">{{ posts.parent.date_posted |timesince }}</div>
+                                </div>
+                            </div>
+                            {% if posts.parent.image %}
+                            <img class="img-fluid mx-auto d-block" src="{{ posts.parent.image.url }}">
+                            <div class="mb-1"></div>
+                            {% endif %}
+                            <div class="d-flex justify-content-center">
+                                {% if posts.parent.audio %}
+                                        <div class="card mb-2">
+                                          <div class="row g-0">
+                                            <div class="col-md-4">
+                                              {% if posts.parent.audio_poster %}
+                                              <img src="{{ posts.parent.audio_poster.url }}" class="img-fluid mx-auto d-block"/>
+                                              {% else %}
+                                              <img src="https://webclip-store.s3.ap-south-1.amazonaws.com/posterdefault.jpg" class="img-fluid mx-auto d-block"/>
+                                              {% endif %}
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                                    {% if posts.parent.audio_name %}
+                                                    <h6 class="card-title my-0"><small><i class="fas fa-music mr-2 text-muted"></i></small>{{ post.parent.audio_name }}</h6>
+                                                    {% else %}
+                                                    <h6 class="card-title my-0"><small><i class="fas fa-music mr-2 text-muted"></i></small>webclip music</h6>
+                                                    {% endif %}
+                                                    {% if posts.parent.audio_artist_name %}
+                                                    <small class="card-subtitle my-0 text-muted lh-1"><i class="fas fa-microphone-alt mr-2"></i>{{ posts.parent.audio_artist_name }}</small>
+                                                    {% else %}
+                                                    <small class="card-subtitle my-0 text-muted lh-1"><i class="fas fa-microphone-alt mr-2"></i>unknown</small>
+                                                    {% endif %}
+                                                </div>
+                                                <audio autoplay>
+                                                    <source src="{{ posts.parent.audio.url }}">
+                            	                </audio>
+                                            </div>
+                                           </div>
+                                        </div>
+                                {% endif %}
+                            </div>
+                            {% if posts.parent.video %}
+                                <video width="100%" class="video-js vjs-theme-forest vjs-fluid" controls preload="auto" data-setup='{ "playbackRates": [1, 1.5, 2] }' style="left: 0px; top: 0px;">
+                                    <source src="{{ posts.parent.video.url }}" type="video/mp4">
+                                </video>
+                            {% endif %}
+                            <p class="border-left">{{ posts.parent.content }}</p>
+                        </article>
+                        {%if user.is_authenticated %}
+                        <div class="d-flex justify-content-start">
+                            <div classs="me-auto p-2">
+                                <div id="like-section">
+                                 {% include 'blog/like_section.html' %}
+                                </div>
+                            </div>
+                            <div class="ml-auto p-2">
+                                <a href="whatsapp://send?text={{ request.build_absolute_uri | urlencode }}" data-action="share/whatsapp/share">
+                                    <button type="button" class="btn btn-outline-dark btn-floating" data-mdb-ripple-color="dark"><i class="fab fa-whatsapp" style="color: #25d366"></i></button>
+                                </a>
+                            </div>
+                            <div class="p-2">
+                                <button type="button" class="btn btn-outline-dark btn-floating" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-code"></i></button>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" style=" margin:0px;" id="openimage"><i class="far fa-copy"></i> Copy Link</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <p>{{ request.build_absolute_uri }}</p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="watchlist-section" class="p-2">
+                                {% if is_watchlist %}
+                                <a href="{% url 'watchlist' pk=posts.pk %}">
+                                    <button type="button" class="btn btn-outline-dark btn-floating"><i class="fas fa-star"></i></button>
+                                </a>
+                                {% else %}
+                                <a href="{% url 'watchlist' pk=posts.pk %}">
+                                    <button type="button" class="btn btn-outline-dark btn-floating"><i class="far fa-star"></i></button>
+                                </a>
+                                {% endif %}
+                            </div>
+                            {% if not posts.restrict_repost %}
+                            <div class="p-2">
+                                <a href="{% url 'repost' pk=posts.pk %}">
+                                      <button type="button" class="btn btn-outline-dark btn-floating"><i class="fas fa-exchange-alt"></i></button>
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </article>
+                    {% else %}
+                    <article class="content-section">
+                        <div class="article-metadata">
+                            <div class="img">
+                               <img class="article-img rounded-circle" src="{{ posts.author.profile.image.url }}" style="object-fit: cover;">
+                            </div>
+                            <div class="profile-info">
+                              <a class="h2" href="{% url 'user-posts' posts.author.username %}">{{ posts.author }}</a><small>{% if posts.author.profile.verify_account %}<i class="fas fa-check-circle ml-1" style="color:#1da1f2;"></i>{% endif %} {% if posts.author.profile.vip_verify_account %}<i class="fas fa-crown" style="color:#25D366;"></i>{% endif %}</small>
+                              <div class="text-muted">{{ posts.date_posted | timesince }}</div>
+                            </div>
+                            <div class="options">
+                                {% if posts.author == user %}
+                                <a href="{% url 'post-update' pk=posts.pk %}">
+                                   <button type="button" class="btn btn-outline-dark btn-rounded btn-sm"><i class="fas fa-pen"></i></button>
+                                </a>
+                                <a href="{% url 'post-delete' pk=posts.pk %}">
+                                   <button type="button" class="btn btn-outline-dark btn-rounded btn-sm"><i class="fas fa-trash"></i></button>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if posts.image %}
+                            <img class="img-fluid mx-auto d-block" src="{{ posts.image.url }}">
+                            <div class="mb-1"></div>
+                        {% endif %}
+                        <!--audio player-->
+                        {% if posts.audio %}
+                            <div class="card mb-2">
+                              <div class="row g-0">
+                                <div class="col-md-4">
+                                  {% if posts.audio_poster %}
+                                  <img src="{{ posts.audio_poster.url }}" class="img-fluid mx-auto d-block"/>
+                                  {% else %}
+                                  <img src="https://webclip-store.s3.ap-south-1.amazonaws.com/posterdefault.jpg" class="img-fluid mx-auto d-block"/>
+                                  {% endif %}
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        {% if posts.audio_name %}
+                                        <h6 class="card-title my-0"><small><i class="fas fa-music mr-2 text-muted"></i></small>{{ posts.audio_name }}</h6>
+                                        {% else %}
+                                        <h6 class="card-title my-0"><small><i class="fas fa-music mr-2 text-muted"></i></small>webclip music</h6>
+                                        {% endif %}
+                                        {% if posts.audio_artist_name %}
+                                        <small class="card-subtitle my-0 text-muted lh-1"><i class="fas fa-microphone-alt mr-2"></i>{{ posts.audio_artist_name }}</small>
+                                        {% else %}
+                                        <small class="card-subtitle my-0 text-muted lh-1"><i class="fas fa-microphone-alt mr-2"></i>unknown</small>
+                                        {% endif %}
+                                    </div>
+                                    <audio autoplay>
+                                        <source src="{{ posts.audio.url }}">
+                            	    </audio>
+                                </div>
+                               </div>
+                            </div>
+                        {% endif %}
+                        <!---audio-->
+                        {% if posts.video %}
+                        <video width="100%" class="video-js vjs-theme-forest vjs-fluid" controls preload="auto" data-setup='{ "playbackRates": [1, 1.5, 2] }' style="left: 0px; top: 0px;">
+                            <source src="{{ posts.video.url }}" type="video/mp4">
+                        </video>
+                        <!--<video width="100%" controlslist="nodownload" style="left: 0px; top: 0px;" controls-->
+                        {% endif %}
+                          <p>{{ posts.content }}</p>
+                        {%if user.is_authenticated %}
+                        <div class="d-flex justify-content-start">
+                            <div classs="me-auto p-2">
+                                <div id="like-section">
+                                 {% include 'blog/like_section.html' %}
+                                </div>
+                            </div>
+                            <div class="ml-auto p-2">
+                                <button type="button" class="btn btn-outline-dark btn-floating" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-code"></i></button>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" style=" margin:0px;" id="openimage"><i class="far fa-copy"></i> Copy Link</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <p>{{ request.build_absolute_uri }}</p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="watchlist-section" class="p-2">
+                                {% if is_watchlist %}
+                                <a href="{% url 'watchlist' pk=posts.pk %}">
+                                    <button type="button" class="btn btn-outline-dark btn-floating"><i class="fas fa-star"></i></button>
+                                </a>
+                                {% else %}
+                                <a href="{% url 'watchlist' pk=posts.pk %}">
+                                    <button type="button" class="btn btn-outline-dark btn-floating"><i class="far fa-star"></i></button>
+                                </a>
+                                {% endif %}
+                            </div>
+                            {% if not posts.restrict_repost %}
+                            <div class="p-2">
+                                <a href="{% url 'repost' pk=posts.pk %}">
+                                      <button type="button" class="btn btn-outline-dark btn-floating"><i class="fas fa-exchange-alt"></i></button>
+                                </a>
+                            </div>
+                            {% endif %}
+                            <div class="p-2">
+                                <button type="button" class="btn btn-outline-dark btn-floating" data-mdb-toggle="modal" data-mdb-target="#sharemodal"><i class="fas fa-share"></i></button>
+                                <div class="modal right fade" id="sharemodal" tabindex="-1" aria-labelledby="sharemodalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+                                  <div class="modal-dialog modal-dialog-centered ">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="sharemodalLabel">Share to</h5>
+                                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-body">
+                                            <a class="btn btn-primary btn-floating btn-lg" style="background-color: #25d366;"
+                                                href="whatsapp://send?text={{ request.build_absolute_uri | urlencode }}" data-action="share/whatsapp/share" role="button"
+                                                  ><i class="fab fa-whatsapp"></i>
+                                            </a>
+                                            <a class="btn btn-primary btn-floating btn-lg mx-2" style="background-color: #55acee;"
+                                                href="http://www.twitter.com/share?url={{ request.build_absolute_uri }} See this Webclip post by {{posts.author}} via @webclip" role="button"
+                                                ><i class="fab fa-twitter"></i>
+                                            </a>
+                                            <a class="btn btn-primary btn-floating btn-lg" style="background-color: #3b5998;"
+                                                href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" role="button"
+                                                ><i class="fab fa-facebook-f"></i>
+                                            </a>
+                                      </div>
+
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </article>
+                    {% endif %}
+                </section>
+                <section class="newsfeed">
+                    {% if user.is_authenticated %}
+                    <div class="content-section">
+                        {% if not posts.restrict_comments %}
+                        <div class="main-comment-section">
+                            {% include 'blog/comments.html' %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                    <div class="card text-end ">
+                        <div class="card-body">
+                            <p class="card-text">
+                              Login or signup to interact with the post
+                            </p>
+                            <a class="btn btn-primary" href="{% url 'login' %}" role="button">Login</a>
+                            <a class="btn btn-primary" href="{% url 'register' %}" role="button">Signup</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </section>
+            </div>
+            {% if posts.video %}
+            <div class="col-md-5">
+                <p class="text-muted text-center"> More videos for you</p>
+                {% suggest %}
+            </div>
+            {% endif %}
+            {% if posts.audio %}
+            <div class="col-md-5 my-5">
+                <p class="text-muted text-center"> More audios for you</p>
+                {% suggestaudio %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</main>
+{% endblock content %}

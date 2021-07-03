@@ -1,0 +1,61 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% load similar %}
+{% block content %}
+<main>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 my-5">
+            <div class="content-section" style="padding:10px 20px">
+
+               <form
+                enctype="multipart/form-data"
+                id="id_ajax_upload_form" method="POST"
+                novalidate="">
+                    <fieldset class="form-group">
+                    {% csrf_token %}
+                        <legend class="border-bottom mb-4"><i class="fas fa-feather-alt text-muted mr-2"></i>Create a post</legend>
+                        {{ form.as_p }}
+                    </fieldset>
+                    <div class="form-group">
+                        <input type="submit" />
+                    </div>
+               </form>
+            </div>
+        </div>
+      </div>
+    </div>
+</main>
+{% endblock content %}
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script type="text/javascript">
+    // form upload
+    $('#id_ajax_upload_form').submit(function(e){
+        e.preventDefault();
+        $form = $(this)
+        var formData = new FormData(this);
+        $.ajax({
+            url: window.location.pathname,
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                $('.error').remove();
+                console.log(response)
+                if(response.error){
+                    $.each(response.errors, function(name, error){
+                        error = '<small class="text-muted error">' + error + '</small>'
+                        $form.find('[name=' + name + ']').after(error);
+                    })
+                }
+                else{
+                    alert(response.message)
+                    window.location = ""
+                }
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    });
+    // end
+   </script>

@@ -1,0 +1,217 @@
+{% load notifications_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+
+   <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet" />
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css">
+
+
+
+    {% if title %}
+    <title>webclip - {{ title }}</title>
+    {% else %}
+    <title>webclip</title>
+    {% endif %}
+    <link rel="icon" href="https://webclip-store.s3.ap-south-1.amazonaws.com/webclip2.png" type="image/x-icon" />
+</head>
+<body>
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <!-- Container wrapper -->
+            <div class="container-fluid justify-content-between">
+                {% if user.is_authenticated %}
+                <!--left element-->
+                <div class="d-flex">
+                    <a class="navbar-brand" href="{% url 'blog-home' %}">
+                        <img src="https://webclip-store.s3.ap-south-1.amazonaws.com/webclip-log-name.png" height="30" alt="" loading="lazy"/>
+                    </a>
+                    <form class="" method="GET" action='{% url "blog-home" %}'>
+                        <div class="input-group">
+                            <span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span>
+                            <input type="search"  name="q" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" value="{{ request.GET.q }}"/>
+                        </div>
+                    </form>
+                </div>
+                <!--left element-->
+                <!--center element-->
+                <div>
+                    <ul class="navbar-nav d-flex flex-row">
+                      <!-- Icons -->
+                      <li class="nav-item me-3 me-lg-5">
+                        <a class="nav-link" href="{% url 'blog-home' %}">
+                          <i class="fas fa-home fa-lg"></i>
+                        </a>
+                      </li>
+                      <li class="nav-item me-3 me-lg-5">
+                        <a class="nav-link" href="{% url 'most-likes' %}">
+                          <span><i class="fas fa-fire fa-lg"></i></span>
+                        </a>
+                      </li>
+                      <li class="nav-item me-3 me-lg-5">
+                        <a class="nav-link" href="{% url 'blog-nearfriend' %}">
+                          <span><i class="far fa-eye fa-lg"></i></span>
+                        </a>
+                      </li>
+                      <li class="nav-item me-3 me-lg-5">
+                        <a class="nav-link" href="{% url 'post_watchlist_list' %}">
+                          <span><i class="far fa-star fa-lg"></i></span>
+                        </a>
+                      </li>
+                    </ul>
+                </div>
+                <!--center element-->
+                <!--right element-->
+                <div>
+                    <ul class="navbar-nav d-flex flex-row">
+                      <!-- Icons -->
+                      <li class="nav-item dropdown me-3 me-lg-5">
+                        <a
+                              class="nav-link dropdown-toggle hidden-arrow"
+                              href="#"
+                              id="navbarDropdownMenuLink"
+                              role="button"
+                              data-mdb-toggle="dropdown"
+                              aria-expanded="false"
+                        >
+
+                            <i class="fas fa-feather-alt fa-lg"></i>
+                        </a>
+                        <ul
+                              class="dropdown-menu dropdown-menu-end"
+                              aria-labelledby="navbarDropdownMenuLink"
+                        >
+                            <li>
+                                <a class="dropdown-item" href="{% url 'post-create' %}">
+                                    <span><i class="fas fa-images fa-lg"></i></span><span class="ps-2">Pictures/Videos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'audiost-create' %}">
+                                    <span><i class="fas fa-music fa-lg"></i></span><span class="ps-2">Audio</span>
+                                </a>
+                            </li>
+                        </ul>
+                      </li>
+
+                      <li class="nav-item me-3 me-lg-5">
+                        <a class="nav-link" href="{% url 'notifications:all' %}">
+                          <span><i class="far fa-bell fa-lg"></i></span>
+                          <span class="badge rounded-pill badge-notification bg-danger">{% live_notify_badge badge_class="badge" %}</span>
+                        </a>
+                      </li>
+                      <li class="nav-item me-3 me-lg-5">
+                        <a class="nav-link" href="{% url 'inbox' %}">
+                          <span><i class="fas fa-paper-plane fa-lg"></i></span>
+                          {% if directs_count %}
+                          <span class="badge rounded-pill badge-notification bg-danger">{{ directs_count }}</span>
+                          {% endif %}
+                        </a>
+                      </li>
+
+                      <li class="nav-item dropdown me-3 me-lg-1">
+                          <a
+                              class="nav-link dropdown-toggle hidden-arrow"
+                              href="#"
+                              id="navbarDropdownMenuLink"
+                              role="button"
+                              data-mdb-toggle="dropdown"
+                              aria-expanded="false"
+                            >
+                              <i class="fas fa-user fa-lg"></i>
+                            </a>
+                            <ul
+                              class="dropdown-menu dropdown-menu-end"
+                              aria-labelledby="navbarDropdownMenuLink"
+                            >
+                              <li>
+                                  <a class="dropdown-item" href="{% url 'profile' %}">
+                                    <span><i class="fas fa-user fa-lg"></i></span><span class="ps-2">profile</span>
+                                  </a>
+                             </li>
+                              <li>
+                                  <a class="dropdown-item" href="{% url 'logout' %}">
+                                    <span><i class="fas fa-power-off fa-lg"></i></span><span class="ps-2">logout</span>
+                                  </a>
+                             </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!--right element-->
+            </div>
+            {% endif %}
+            <!-- Container wrapper -->
+        </nav>
+            <!-- Navbar -->
+    </header>
+    <main>
+        <div class="container my-5">
+            <div class="row">
+                <div class="col-md-3 mt-5 d-none d-lg-block">
+                    <section class="newsfeed mt-4">
+                        <div class="card">
+                            <div class="card-header"><strong class="display-6">Settings</strong></div>
+                            <ul class="list-group">
+                              <a class="text-reset" href="{% url 'verify-profile' %}"><li class="list-group-item" aria-current="true">Verify Profile</li></a>
+                              <a class="text-reset" href="{% url 'popular' %}"><li class="list-group-item active">Apply for Popular Badge</li></a>
+                              <a class="text-reset" href="{% url 'password_reset' %}"><li class="list-group-item">Reset Password</li></a>
+                              <a class="text-reset" href="{% url 'help-center' %}"><li class="list-group-item">Help Center</li></a>
+                              <a class="text-reset" href="{% url 'reportpost' %}"><li class="list-group-item">Report a post</li></a>
+                              <a class="text-reset" href="{% url 'reportprofile' %}"><li class="list-group-item">Report a profile</li></a>
+                              <a class="text-reset" href="{% url 'privacy-policy' %}"><li class="list-group-item">Privacy Policy</li></a>
+                              <a class="text-reset" href="{% url 'terms' %}"><li class="list-group-item">Terms</li></a>
+                              <a class="text-reset" href="{% url 'deleteaccount' %}"><li class="list-group-item">Request for Delete Account</li></a>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-md-9 mt-5">
+                    <section class="newsfeed mt-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title display-6 text-info">Apply for a Popular Badge <i class="fas fa-crown mx-1" style="color:#25D366;"></i></h5>
+                                <p>
+                                    Before applying for a Popular badge you must have to verify your profile.
+                                    Popular badges are for <strong>Government, Companies, brands and non-profit
+                                    organizations, news organizations and journalists, Entertainment, Sports and
+                                    esports, Activists, organizers, and other influential individuals</strong>.
+                                </p>
+                                <p>To apply for a Popular badge, follow the steps below:</p>
+                                <p>1. Before applying for a popular badge <i class="fas fa-crown mx-1" style="color:#25D366;"></i> make sure you are verified.</p>
+                                <p>2. Go to your email, which is registered with your webclip account.</p>
+                                <p>3. Write down for which category you want to apply for a popular badge with your username, display name, email address (which is registered with your Webclip account) in your email subject.</p>
+                                <p>4. Send the email to <strong class="text-info">webclip.care@gmail.com</strong>.</p>
+                                <p class="note note-info"> Before moving forward we will check through all the information. If your information doesn't match, we will abort the process.</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script> <!--problem with 3.1.0 jquery as its not working on comment section properly in content refreshing system-->
+    <script src="https://kit.fontawesome.com/34abf3621c.js" crossorigin="anonymous"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
+
+</body>
+</html>

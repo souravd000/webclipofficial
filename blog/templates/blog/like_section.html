@@ -1,0 +1,15 @@
+<form action="{% url 'like_post' %}" method="POST">
+{% csrf_token %}
+{% if is_liked %}
+<button type="submit" id="like" name="post_id" value="{{ posts.id }}" class="btn btn-outline-danger btn-floating" data-mdb-ripple-color="dark"><i class="fas fa-heart"></i></button>
+{% else %}
+<button type="submit" id="like" name="post_id" value="{{ posts.id }}" class="btn btn-outline-dark btn-floating" data-mdb-ripple-color="dark"><i class="far fa-heart"></i></button>
+{% endif %}
+</form>
+<div class="d-flex mb-0">
+    <div class=" me-auto p-2 px-0 py-0">
+        <a class="text-muted" href="{% url 'post-likes' pk=posts.pk %}">
+            <p>{{ total_likes }} like{{ total_likes|pluralize }}</p>
+        </a>
+    </div>
+</div>

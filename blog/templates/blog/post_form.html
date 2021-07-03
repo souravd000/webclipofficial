@@ -1,0 +1,73 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% load similar %}
+{% block content %}
+<main>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 my-5">
+            <div class="content-section" style="padding:10px 20px">
+                <form method="POST" enctype='multipart/form-data'>
+                    <fieldset class="form-group">
+                    {% csrf_token %}
+                        <legend class="border-bottom mb-4"><i class="fas fa-feather-alt text-muted mr-2"></i>Create a post</legend>
+                        {{ form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+
+                        <button class="btn btn-outline-info" type="submit" data-mdb-toggle="modal" data-mdb-target="#exampleModal">Post</button>
+
+                        <p><strong>Please wait while uploading your post. It may take some time.</strong></p>
+                        <div
+                          class="modal top fade"
+                          id="exampleModal"
+                          tabindex="-1"
+                          aria-labelledby="exampleModalLabel"
+                          aria-hidden="true"
+                          data-mdb-backdrop="static"
+                        >
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Create</h5>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-mdb-dismiss="modal"
+                                  aria-label="Close"
+                                ></button>
+                              </div>
+                              <div class="modal-body" style="background:#ffffff;">
+                                    <p class="text-dark"> Make sure your text field is not empty. Otherwise, it will not post.</p>
+                                    <div class="d-flex align-items-center text-dark mx-4 my-4">
+                                      <strong>Uploading...</strong>
+                                      <div class="spinner-border text-primary ms-auto " role="status" aria-hidden="true"></div>
+                                    </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4 my-5">
+            <div class="note note-warning">
+                <ul class="list-unstyled">
+                    <ul>
+                        <li>You can put emoji from your mobile keyboard emoji pack.</li>
+                        <li>Audio should be in mp3 format.</li>
+                        <li>Video should be in mp4 format.</li>
+                        <li>You can tag only one user per post.</li>
+                        <li>We currently don't support the progress bar when uploading your post instead, we are relying on browser page loading progress.</li>
+                        <li>If your file format does not match, it will redirect you to this page by not posting your Post.</li>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+      </div>
+    </div>
+</main>
+
+{% endblock content %}

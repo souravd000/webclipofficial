@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+   <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet" />
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css">
+    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
+    <link href="https://unpkg.com/video.js@7/dist/video-js.min.css" rel="stylesheet"/>
+    <link href="https://unpkg.com/@videojs/themes@1/dist/forest/index.css" rel="stylesheet"/>
+    <link rel='stylesheet' href='https://unpkg.com/plyr@3/dist/plyr.css'>
+
+
+
+    {% if title %}
+    <title>Webclip {{ title }}</title>
+    {% else %}
+    <title>Webclip</title>
+    {% endif %}
+    <link rel="icon" href="https://webclip-store.s3.ap-south-1.amazonaws.com/webclip2.png" type="image/x-icon" />
+</head>
+<body>
+    <header>
+        <!-- Navbar -->
+       <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <div class="container-fluid">
+                <a class="navbar-brand">
+                    <img src="https://webclip-store.s3.ap-south-1.amazonaws.com/webclip2.png" height="30" alt="" loading="lazy"/>
+                     Privacy Policy
+                </a>
+                <button
+                  class="navbar-toggler"
+                  type="button"
+                  data-mdb-toggle="collapse"
+                  data-mdb-target="#navbarNav"
+                  aria-controls="navbarNav"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
+                  <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav">
+                    <li class="nav-item">
+                      <a class="nav-link"  href="{% url 'about-webclip' %}">About</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link " href="{% url 'terms' %}">Terms</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="{% url 'privacy-policy' %}">Privacy</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'help-center' %}">Help center</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+            <!-- Navbar -->
+    </header>
+
+    <main class="">
+        <div class="container">
+            <section class="my-4">
+                <div class="card">
+                    <div classs="card-body">
+                        <h1 class="display-4"> We will here discuss our privacy policy in simple, clear, transparent and short.</h1>
+                        <p>We believe you should always know what data we collect from you and how we use it,
+                        and that you should have meaningful control over both. We want to empower you to make the
+                        best decisions about the information that you share with us.</p>
+                        <p>Webclip is public and Posts are viewable and searchable by anyone around the
+                        world. We give you non-public ways to communicate on Webclip too, through protected Posts and
+                        Chatclip Messages. You can also use Webclip under a pseudonym if you prefer not to use your name.
+                        </p>
+                        <h4>Basic Account Information</h4>
+                        <p>We require certain information to provide our services to you. For example, you must have an account
+                        in order to upload or share content on Webclip. When you choose to share the information below with us,
+                        we collect and use it to operate our services.
+                        </p>
+                        <P>You have to make a Webclip account for interacting on posts ( like, Comment, Repost).
+                        If you do choose to create an account, you must provide us with some personal data so that
+                        we can provide our services to you. On Webclip this includes a user name (for example, “WebclipOfficial1234”),
+                        a display name (for example, "Webclip Official"), a password, and an email address. Your display name and username are always public.
+                        You can also create and manage multiple Webclip accounts using the same email address. You can verify one of those accounts with profile verification.
+                        </P>
+
+                        <p>We don't share any of our user information outside Webclip excluding your posts. Your information is always
+                        safe with us. We barely use third parties for our services.
+                        </p>
+                        <P>The lists you create, people you follow and who follow you, and Posts you Like or Repost are also public.
+                        If you like, Repost, comment, reply to a post those are also public. Your post ( text-posts, photos, videos, audios)
+                        are downloadable. Anyone can download your photos, videos, or audio, so watermarking is a useful tip always.</P>
+                        <p>The information posted about you by other people who use our services may also be public. For example, other people
+                        may tag you in a photo or mention you in a comment.</p>
+                        <p>We will update our service to keep our and your privacy at best. While we are privacy-driven social media,
+                        we don't take any of your data unless you decide to give us. You can choose either you want to let other users
+                        comment or Repost your Posts or not. We don't take your location or IP address by our system functions.
+
+                        </p>
+                        <p>You are responsible for your posts and other information you provide through our services, and you should think carefully
+                        about what you make public, especially if it is sensitive information. If you update your public information on Webclip, such
+                        as by deleting a Post or deactivating your account, we will reflect your updated content on Webclip.
+                        </p>
+                        <p>By publicly posting content when you Post, you are directing us to disclose that information as broadly as possible.
+                           When you are posting content, you are directing your post globally.
+                        </p>
+                        <P><strong> So What you give us?</strong>
+                        While creating your account, you decide to give us your username, full name, Email id. After updating your profile, you give
+                        us your Bio, your profile picture, your relationship status, your gender, and the things, which you will get visiting your profile update page.
+                        By updating your profile, you can choose what will be in your profile publically.
+                        </P>
+                        <p>You can verify your profile for privacy. For that, you have to submit a form using google forms ( we use google drive for storing your Id photos until verification )
+                         where you will submit the information that's required to verify your profile with any of your government authorized IDs. After Verifying your profile we permanently
+                         delete your Government Authorized id card photos and other information that you share with us.
+                        That's the way we keep our relationship with you stronger. You have to verify your profile for security issues and against fake Id. If you decide not to verify your
+                        profile you can still use Our services. After verification of your profile, you will get a blue tick badge which will be viewed by the public.
+                        </p>
+                        <p>We have two types of badge a blue tick badge for profile verification and a popular crown badge for public figures or artists or users who have a broad range of followers.
+                        You have to verify your profile first to apply for a popular crown badge.
+                        </p>
+                        <p>Our profile verification and popular badge verification is completely a human process which is why we take a couple of days to verify your profile.
+                        After your verification, we will send you an email to notify you.</p>
+
+                        <h4>CC Messages and Non-Public Communications</h4>
+                        <p>
+                            We provide certain features that let you communicate more privately. For example, you can use our CC Messages
+                            to have non-public conversations on Webclip. When you communicate with others by
+                            sending or receiving CC Messages, we will store and process your communications and information related to them. We also
+                            use information about whom you have communicated with and when (but not the content of those communications) to better understand the use of our
+                            services, to protect the safety and integrity of our platform. We share the content of your CC Messages
+                            with the people you’ve sent them to; we do not use them to serve you ads. When you use
+                            features like CC Messages to communicate, remember that recipients have their copy of your communications on Webclip.
+                        </p>
+                        <h4>Payment Information</h4>
+                        <p>
+                            You may provide us with payment information, including your credit or debit card number, card expiration date, CVV code, and billing address,
+                            in order to support us.
+                        </p>
+                        <p>
+                            We have two types of payment service One for us and one for you. If you support us, you can donate to us using Paypal or Paytm.
+                            The second one for users who wants to add Contribute Feature. We provide this feature for every user. To Receive donations or a contribution.
+                            You have to add those fields by updating your profile. 0n the profile update section, you will  get a <strong>QR Snap</strong> option ,where
+                            you can upload your QR Code photo, which is offered by your Online Banking provider
+                            , and can add UPI ID (India) also. By adding these we will not be responsible for any of your banking sector problems. You are adding that
+                            information in your own will. <strong>We don't use any OTP system in our services</strong>. If anyone tries to take information on behalf
+                            of our services, Don't fall for those traps.
+                        <!--grammaerly complete-->
+                        </p>
+                        <h4>Additional Information We Receive About You</h4>
+                        <h6>Cookies</h6>
+                        <p>
+                        A cookie is a small piece of data that is stored on your computer or mobile device. Like many websites, we use cookies and similar technologies
+                        to collect additional website usage data and to operate our services. Cookies are not required for many parts of our services such as searching
+                        and looking at public profiles. Although most web browsers automatically accept cookies, many browsers’ settings can be set to decline
+                        cookies or alert you when a website is attempting to place a cookie on your computer. However, some of our services may not function
+                        properly if you disable cookies. When your browser or device allows it, we use both session cookies and persistent cookies to better
+                        understand how you interact with our services, to monitor aggregate usage patterns, and to personalize and otherwise operate our
+                        services such as by providing account security, personalizing the content we show you. We do not support the Do Not Track browser option.
+                        </p>
+                        <h6>Log Data</h6>
+                        <p>We receive information when you view content on or otherwise interact with our services, which we refer to as “Log Data,”
+                        even if you have not created an account. For example, when you visit our websites, sign into our services, interact with our
+                        Webclip content, we may receive information about you. This Log Data includes information such as your, browser type,
+                        operating system, the referring web page, pages visited, your mobile carrier, search terms (including those not submitted as queries),
+                        and cookie information. We also receive Log Data when
+                        you click on, view, or interact with links on our services. We use
+                        Log Data to operate our services and ensure their secure, reliable, and robust performance. For example, we use Log Data to protect
+                        the security of accounts and to determine what content is popular on our services. We also use this data to improve the content we
+                        show you.
+                        </p>
+                        <h4>Law, Harm, and the Public Interest</h4>
+                        <P>
+                        Notwithstanding anything to the contrary in this Privacy Policy or controls we may otherwise offer to you, we may preserve,
+                        use, share, or disclose your personal data or other safety data if we believe that it is reasonably necessary to comply with a
+                        law, regulation, legal process, or governmental request; to protect the safety of any person; to protect the safety or integrity
+                        of our platform, including to help prevent spam, abuse, or malicious actors on our services, or to explain why we have removed
+                        content or accounts from our services; to address fraud, security, or technical issues; or to protect our rights or property or
+                        the rights or property of those who use our services. However, nothing in this Privacy Policy is intended to limit any legal
+                        defenses or objections that you may have to a third party’s, including a government’s, request to disclose your personal data.
+                        </P>
+                        <h3>
+                        You control the personal data you share with us. You can access or rectify this data at any time. You can also deactivate
+                        your account. We also provide you tools to object, restrict, or withdraw consent where applicable for the use of data you have
+                        provided to Webclip. And we make the data you shared through our services portable and provide easy ways for you to contact us.
+                        Please note, to help protect your privacy and maintain security, we take steps to verify your identity before granting you access
+                        to your personal information or complying with deletion, portability, or other related requests.
+                        </h3>
+                        <h4>
+                            Accessing or Rectifying Your Personal Data
+                        </h4>
+                        <p>
+                            If you have registered an account on Webclip, we provide you with account settings to access, correct, or
+                            modify the personal data you provided to us and associated with your account. You can download certain account information,
+                            including your posted photos, videos, audios. To submit a request
+                            related to access, modification or deletion of your information, you may also contact us By Email which can be found in the contact page.
+                        </p>
+                        <h4>Deletion</h4>
+                        <p>You can follow the instructions on Help center for how to delete your account. We will deactivate your account if we find out you are providing
+                        content which is violating our privacy policies. When deactivated, your webclip account, including your
+                        display name, username, and public profile, will no longer be viewable on Webclip. For up to 15 days after deactivation
+                        we will restore your Webclip account.</p>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script> <!--problem with 3.1.0 jquery as its not working on comment section properly in content refreshing system-->
+    <script src="https://kit.fontawesome.com/34abf3621c.js" crossorigin="anonymous"></script>
+    <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
+    <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
+    <script src='https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL'></script>
+    <script src='https://unpkg.com/plyr@3'></script>
+
+
+</body>
+</html>
